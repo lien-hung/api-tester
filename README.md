@@ -12,7 +12,7 @@
 - [License](#license)
 
 ## Installation
-*TBA*
+The VSIX file can be downloaded from the [Releases](https://github.com/lien-hung/api-tester/releases) page.
 
 ## Features
 This extension acts as a UI-based HTTP client to send requests to your desired endpoint. Most helpful for testing and verifying that your API is working properly.
