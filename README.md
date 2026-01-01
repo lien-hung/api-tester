@@ -1,4 +1,5 @@
 <div align="center">
+    <img src="https://github.com/lien-hung/api-tester/blob/master/icons/images/apitester-icon.png" width="128" />
     <h3>API Tester</h3>
     <h5>A lightweight HTTP client for sending requests and testing APIs in VSCode</h5>
 </div>
@@ -42,4 +43,4 @@ Based on the [REST API Client](https://marketplace.visualstudio.com/items?itemNa
 - **Compiler**: [Babel](https://babeljs.io/)
 
 ## License
-See license for details.
+See [license](https://github.com/lien-hung/api-tester/blob/master/LICENSE) for details.
