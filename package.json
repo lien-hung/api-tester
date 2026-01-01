@@ -3,6 +3,9 @@
   "displayName": "API Tester",
   "icon": "icons/images/apitester-icon.png",
   "description": "A lightweight HTTP client for sending requests and testing APIs",
+  "repository": {
+    "url": "https://github.com/lien-hung/api-tester"
+  },
   "version": "1.0.0",
   "engines": {
     "vscode": "^1.107.0"
