@@ -1,0 +1,149 @@
+{
+  "name": "api-tester",
+  "displayName": "API Tester",
+  "icon": "icons/images/apitester-icon.png",
+  "description": "A lightweight HTTP client for sending requests and testing APIs",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.107.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "title": "New Request",
+        "command": "api-tester.newRequest",
+        "category": "Requests",
+        "icon": {
+          "light": "icons/svg/add-light.svg",
+          "dark": "icons/svg/add-dark.svg"
+        }
+      },
+      {
+        "title": "Delete Request",
+        "command": "api-tester.deleteRequest",
+        "category": "Requests",
+        "icon": {
+          "light": "icons/svg/delete-light.svg",
+          "dark": "icons/svg/delete-dark.svg"
+        }
+      },
+      {
+        "title": "Clear History",
+        "command": "api-tester.clearHistory",
+        "category": "Requests",
+        "icon": {
+          "light": "icons/svg/clear-history-light.svg",
+          "dark": "icons/svg/clear-history-dark.svg"
+        }
+      },
+      {
+        "title": "Open From History",
+        "command": "api-tester.openFromHistory",
+        "category": "Requests"
+      }
+    ],
+    "views": {
+      "apiTesterActivityBarContainer": [
+        {
+          "id": "apiTesterRequestHistoryTreeView",
+          "name": "Request History",
+          "icon": "icons/svg/request-history-view.svg"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "apiTesterActivityBarContainer",
+          "icon": "icons/svg/apitester-sidebar.svg",
+          "title": "API Tester"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "apiTesterRequestHistoryTreeView",
+        "contents": "Your history collection seems to be empty.\nTo start sending HTTP requests, click the button below.\n[Add Request](command:api-tester.newRequest)"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "api-tester.newRequest",
+          "when": "false"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "api-tester.newRequest",
+          "when": "view == apiTesterRequestHistoryTreeView",
+          "group": "navigation@1"
+        },
+        {
+          "command": "api-tester.clearHistory",
+          "when": "view == apiTesterRequestHistoryTreeView",
+          "group": "navigation@2"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "api-tester.deleteRequest",
+          "when": "view == apiTesterRequestHistoryTreeView && viewItem == userRequestHistory.item",
+          "group": "inline"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.28.5",
+    "@babel/preset-env": "^7.28.5",
+    "@babel/preset-react": "^7.28.5",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@types/postman-collection": "^3.5.11",
+    "@types/vscode": "^1.107.0",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2",
+    "buffer": "^6.0.3",
+    "eslint": "^9.39.1",
+    "file-loader": "^6.2.0",
+    "path-browserify": "^1.0.1",
+    "ts-loader": "^9.5.4",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.48.1",
+    "url": "^0.11.4",
+    "webpack": "^5.103.0",
+    "webpack-cli": "^6.0.1"
+  },
+  "dependencies": {
+    "@monaco-editor/react": "^4.7.0",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@types/styled-components": "^5.1.36",
+    "form-data": "^4.0.5",
+    "postman-code-generators": "^2.1.0",
+    "postman-collection": "^5.2.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-spinners": "^0.17.0",
+    "styled-components": "^6.1.19",
+    "use-debounce": "^10.0.6",
+    "zustand": "^5.0.9"
+  }
+}

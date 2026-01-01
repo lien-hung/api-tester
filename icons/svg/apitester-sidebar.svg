@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="118.538mm"
+   height="118.53888mm"
+   viewBox="0 0 118.538 118.53888"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <g
+     id="layer1">
+    <g
+       id="g1"
+       transform="translate(-46.825435,-88.825)">
+      <ellipse
+         style="fill:none;fill-opacity:1;stroke:#d7dae0;stroke-width:6.35;stroke-dasharray:none;stroke-opacity:1"
+         id="path1"
+         cx="106.09444"
+         cy="148.09444"
+         rx="56.094002"
+         ry="56.094437" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:43.1669px;font-family:mononoki;-inkscape-font-specification:'mononoki, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#d7dae0;fill-opacity:1;stroke-width:0.270535"
+         x="68.274498"
+         y="152.62959"
+         id="text8"
+         transform="scale(1.0224952,0.97799971)"><tspan
+           id="tspan8"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:43.1669px;font-family:mononoki;-inkscape-font-specification:'mononoki, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#d7dae0;fill-opacity:1;stroke-width:0.270535"
+           x="68.274498"
+           y="152.62959">API</tspan></text>
+      <g
+         id="g9"
+         transform="matrix(0.99817669,0,0,1,1.0097386,-0.53122441)"
+         style="fill:#d7dae0;fill-opacity:1">
+        <rect
+           style="fill:#d7dae0;fill-opacity:1;stroke-width:0.264583"
+           id="rect8"
+           width="64.608772"
+           height="3.5059023"
+           x="69.617195"
+           y="158.76727" />
+        <path
+           style="fill:#d7dae0;fill-opacity:1;stroke-width:0.264583"
+           id="path9"
+           d="m 133.33734,164.14833 -0.033,-7.41807 6.44075,3.68043 z" />
+      </g>
+      <g
+         id="g9-8"
+         transform="matrix(-0.99817669,0,0,1,209.99026,11.233799)"
+         style="fill:#d7dae0;fill-opacity:1">
+        <rect
+           style="fill:#d7dae0;fill-opacity:1;stroke-width:0.264583"
+           id="rect8-2"
+           width="64.608772"
+           height="3.5059023"
+           x="69.617195"
+           y="158.76727" />
+        <path
+           style="fill:#d7dae0;fill-opacity:1;stroke-width:0.264583"
+           id="path9-4"
+           d="m 133.33734,164.14833 -0.033,-7.41807 6.44075,3.68043 z" />
+      </g>
+    </g>
+  </g>
+</svg>

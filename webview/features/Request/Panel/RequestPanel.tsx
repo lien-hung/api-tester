@@ -1,0 +1,81 @@
+import React, { FormEvent, useEffect, useRef } from "react";
+import styled from "styled-components";
+import { useShallow } from "zustand/shallow";
+
+import { COMMON } from "../../../constants/index";
+import useStore from "../../../store/useStore";
+import RequestButton from "../Button/RequestButton";
+import RequestDetailOption from "../Menu/RequestMenu";
+import RequestMethod from "../Method/RequestMethod";
+import RequestUrl from "../Url/RequestUrl";
+
+const RequestPanel = () => {
+  const requestMenuRef = useRef<HTMLDivElement | null>(null);
+  const requestData = useStore(
+    useShallow((state) => ({
+      authData: state.authData,
+      requestUrl: state.requestUrl,
+      authOption: state.authOption,
+      bodyOption: state.bodyOption,
+      bodyRawData: state.bodyRawData,
+      bodyRawOption: state.bodyRawOption,
+      requestMethod: state.requestMethod,
+      keyValueTableData: state.keyValueTableData,
+    }))
+  );
+  const { requestMenuWidth, handleRequestProcessStatus } = useStore(
+    useShallow((state) => ({
+      requestMenuWidth: state.requestMenuWidth,
+      handleRequestProcessStatus: state.handleRequestProcessStatus,
+    }))
+  );
+
+  const handleFormSubmit = (event: FormEvent) => {
+    event.preventDefault();
+
+    if (requestData.requestUrl.length !== 0) {
+      handleRequestProcessStatus(COMMON.LOADING);
+    }
+
+    vscode.postMessage({
+      ...requestData,
+    });
+  };
+
+  useEffect(() => {
+    if (requestMenuRef.current) {
+      requestMenuRef.current.style.width = requestMenuWidth;
+      requestMenuRef.current.style.flexGrow = "0";
+    }
+  }, [requestMenuWidth]);
+
+  return (
+    <RequestPanelWrapper ref={requestMenuRef}>
+      <RequestMainForm onSubmit={handleFormSubmit}>
+        <RequestMethod />
+        <RequestUrl />
+        <RequestButton />
+      </RequestMainForm>
+      <RequestDetailOption />
+    </RequestPanelWrapper>
+  );
+};
+
+const RequestPanelWrapper = styled.div`
+  display: flex;
+  flex: 1 1 auto;
+  flex-flow: column;
+  margin: 2rem 1rem;
+  overflow: hidden;
+  vertical-align: top;
+  height: auto;
+  max-height: calc(100vh - 4rem);
+  box-sizing: border-box;
+`;
+
+const RequestMainForm = styled.form`
+  display: flex;
+  flex: 0 1 auto;
+`;
+
+export default RequestPanel;
