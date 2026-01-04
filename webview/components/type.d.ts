@@ -21,34 +21,11 @@ export interface IDetailOptionProps {
   requestMenu?: boolean;
 }
 
-export interface IInformationProps {
-  children: ReactNode;
-  textColor: string;
-}
-
-export interface IInformationStyledProps {
-  textColor: string;
-}
-
 export interface ICommonChildProps {
   children: ReactNode;
 }
 
-export interface TMenuOptionProps {
-  children: ReactElement;
-  currentOption: string | null;
-  menuOption: string;
-}
-
-export interface IMenuOptionStyledProps {
-  primary: boolean;
-}
-
-export interface IMenuOptionStyledProps {
-  primary?: boolean;
-}
-
-interface IMenuOptionProps {
+export interface IMenuOptionProps {
   children: ReactElement;
   currentOption: string | null;
   menuOption: string;

@@ -1,6 +1,6 @@
 import { EventEmitter, TreeDataProvider } from "vscode";
 import { RequestHistoryTreeItem } from "./tree-items";
-import getMethodIcons from "../../src/utils/getMethodIcons";
+import { getMethodIcons } from "../../src/utils";
 import ExtensionStateManager from "../state-manager";
 import { COLLECTION } from "../constants";
 

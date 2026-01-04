@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { TMenuOptionProps } from "./type";
+import { IMenuOptionProps } from "./type";
 
 const MenuOption = ({
   children,
   currentOption,
   menuOption,
-}: TMenuOptionProps) => {
+}: IMenuOptionProps) => {
   return (
     <MenuOptionWrapper primary={currentOption === menuOption}>
       {children}

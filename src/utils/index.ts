@@ -5,3 +5,5 @@ export { default as getBody } from "./getBody";
 export { default as getHeaders } from "./getHeaders";
 export { default as getNonce } from "./getNonce";
 export { default as getUrl } from "./getUrl";
+export { default as getMethodIcons } from "./getMethodIcons";
+export { default as getElapsedTime } from "./getElapsedTime";
