@@ -1,6 +1,6 @@
-const removeUrlParameter = (url: string): string | undefined => {
+const removeUrlParameter = (url: string): string => {
   if (url[0] === "?") {
-    return;
+    return "";
   }
 
   let targetIndex = 0;

@@ -28,16 +28,6 @@ const RequestUrl = () => {
       (data) => data.optionType === REQUEST.PARAMS && data.isChecked,
     );
 
-    if (filteredData.length === 0) {
-      const parameterRemovedUrl = removeUrlParameter(requestUrl);
-
-      if (parameterRemovedUrl) {
-        handleRequestUrlChange(parameterRemovedUrl);
-      }
-
-      return;
-    }
-
     const parameterString = generateParameterString(filteredData);
     const parameterRemovedUrl = removeUrlParameter(requestUrl);
     const newUrlWithParams = parameterRemovedUrl + parameterString;
