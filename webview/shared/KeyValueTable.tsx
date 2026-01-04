@@ -1,27 +1,19 @@
 import React, { memo } from "react";
 import styled from "styled-components";
-import { IResponseDataHeader } from "../store/slices/type";
+import { IResponseDataHeader, KeyValueTableData } from "../store/slices/type";
 
-import addIcon from "../assets/svg/add-icon.svg";
 import deleteIcon from "../assets/svg/delete-icon.svg";
 
 interface IKeyValueTableProps {
   type?: string;
   title?: string;
   readOnly: boolean;
-  addNewTableRow?: (type: string) => void;
-  deleteTableRow?: (index: number) => void;
-  handleRequestKey?: (index: number, value: string) => void;
-  keyValueTableData:
-    | {
-        optionType: string;
-        isChecked: boolean;
-        key: string;
-        value: string;
-      }[]
-    | IResponseDataHeader[];
-  handleRequestValue?: (index: number, value: string) => void;
-  handleRequestCheckbox?: (index: number) => void;
+  addNewTableRow?: (type: string, id?: string) => void;
+  deleteTableRow?: (id: string) => void;
+  handleRequestKey?: (id: string, value: string) => void;
+  keyValueTableData: KeyValueTableData[] | IResponseDataHeader[];
+  handleRequestValue?: (id: string, value: string) => void;
+  handleRequestCheckbox?: (id: string) => void;
 }
 
 const KeyValueTable = ({
@@ -35,6 +27,9 @@ const KeyValueTable = ({
   handleRequestValue,
   handleRequestCheckbox,
 }: IKeyValueTableProps) => {
+  // @ts-ignore
+  const filteredData = keyValueTableData.filter(data => data.optionType === type);
+
   return (
     <TableContainerWrapper>
       <TableContainer>
@@ -45,77 +40,77 @@ const KeyValueTable = ({
               {!readOnly && <th></th>}
               <th>Key</th>
               <th>Value</th>
-              {!readOnly && (
-                <th className="tableIconContainer">
-                  <IconButton
-                    className="tableIcon addButton"
-                    onClick={() => type && addNewTableRow && addNewTableRow(type)}
-                  >
-                    <img src={addIcon} />
-                  </IconButton>
-                </th>
-              )}
+              {!readOnly && <th className="tableDelete"></th>}
             </tr>
           </thead>
           <tbody>
-            {keyValueTableData.map(
+            {filteredData.map(
               (
-                { optionType, isChecked, key, value }: any,
+                { id, isChecked, key, value }: any,
                 index: number,
               ) => (
-                <React.Fragment key={index}>
-                  {optionType === type && (
-                    <tr>
-                      {!readOnly && (
-                        <th className="tableIconContainer">
+                <React.Fragment key={id}>
+                  <tr>
+                    {!readOnly && (
+                      <th className="tableCheckbox">
+                        {index !== filteredData.length - 1 && (
                           <input
                             type="checkbox"
                             checked={isChecked}
                             onChange={() =>
                               handleRequestCheckbox &&
-                              handleRequestCheckbox(index)
+                              handleRequestCheckbox(id)
                             }
                           />
-                        </th>
-                      )}
-                      <td>
-                        <input
-                          type="text"
-                          name="Key"
-                          placeholder="Key"
-                          value={key}
-                          onChange={(event) =>
-                            handleRequestKey &&
-                            handleRequestKey(index, event.target.value)
+                        )}
+                      </th>
+                    )}
+                    <td>
+                      <input
+                        type="text"
+                        name="Key"
+                        placeholder="Key"
+                        value={key}
+                        onChange={(event) => {
+                          if (index === filteredData.length - 1) {
+                            type && addNewTableRow && addNewTableRow(type);
+                            handleRequestCheckbox && handleRequestCheckbox(id);
                           }
-                          readOnly={readOnly}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          name="Value"
-                          placeholder="Value"
-                          value={value}
-                          onChange={(event) =>
-                            handleRequestValue &&
-                            handleRequestValue(index, event.target.value)
+                          handleRequestKey && handleRequestKey(id, event.target.value);
+                        }}
+                        readOnly={readOnly}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="Value"
+                        placeholder="Value"
+                        value={value}
+                        onChange={(event) => {
+                          if (index === filteredData.length - 1) {
+                            type && addNewTableRow && addNewTableRow(type);
+                            handleRequestCheckbox && handleRequestCheckbox(id);
                           }
-                          readOnly={readOnly}
-                        />
-                      </td>
-                      {!readOnly && (
-                        <th className="tableIconContainer">
+                          handleRequestValue && handleRequestValue(id, event.target.value);
+                        }}
+                        readOnly={readOnly}
+                      />
+                    </td>
+                    {!readOnly && (
+                      <th className="tableDelete">
+                        {index !== filteredData.length - 1 && (
                           <IconButton
+                            type="button"
                             className="tableIcon"
-                            onClick={() => deleteTableRow && deleteTableRow(index)}
+                            onClick={() => deleteTableRow && deleteTableRow(id)}
                           >
                             <img src={deleteIcon} />
                           </IconButton>
-                        </th>
-                      )}
-                    </tr>
-                  )}
+                        )}
+                      </th>
+                    )}
+                  </tr>
                 </React.Fragment>
               ),
             )}
@@ -167,8 +162,14 @@ const Table = styled.table<{ readOnlyMode: boolean }>`
   td {
     font-weight: 500;
     text-align: left;
-    padding: 0.3rem 1.2rem;
+    padding: 0.6rem;
     border: 0.1rem solid rgb(55, 55, 55);
+  }
+
+  tbody tr {
+    &:hover .tableIcon {
+      display: inline-block;
+    }
   }
 
   input {
@@ -179,23 +180,22 @@ const Table = styled.table<{ readOnlyMode: boolean }>`
     opacity: ${(props) => props.readOnlyMode && "0.75"};
   }
 
-  .tableIconContainer {
-    width: 2rem;
+  .tableCheckbox, .tableDelete {
+    width: 2.5rem;
     text-align: center;
-    padding: 0.3rem;
+    padding: 0 0.15rem 0 0.2rem;
+  }
+
+  .tableDelete {
+    border-left: hidden;
   }
 
   .tableIcon {
-    text-align: center;
-    cursor: pointer;
+    display: none;
 
     &:hover {
       opacity: 0.7;
     }
-  }
-
-  .addButton {
-    width: 2rem;
   }
 `;
 

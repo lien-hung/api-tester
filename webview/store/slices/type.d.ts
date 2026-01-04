@@ -27,6 +27,7 @@ export interface BodyRawData {
 }
 
 export interface KeyValueTableData {
+  id: string;
   optionType: string;
   isChecked: boolean;
   key: string;
@@ -115,11 +116,11 @@ export interface ISidebarResponse {
 export interface IKeyValueTableDataSlice {
   keyValueTableData: KeyValueTableData[];
   addNewTableRow: (type: string) => void;
-  deleteTableRow: (index: number) => void;
+  deleteTableRow: (id: string) => void;
   removeRequestBodyHeaders: () => void;
   addRequestBodyHeaders: (value: string) => void;
-  handleRequestCheckbox: (index: number) => void;
-  handleRequestKey: (index: number, detail: string) => void;
-  handleRequestValue: (index: number, detail: string) => void;
+  handleRequestCheckbox: (id: string) => void;
+  handleRequestKey: (id: string, detail: string) => void;
+  handleRequestValue: (id: string, detail: string) => void;
   handleSidebarCollectionHeaders: (headers: KeyValueTableData[]) => void;
 }

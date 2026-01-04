@@ -10,49 +10,58 @@ const keyValueTableDataSlice: StateCreator<
 > = (set) => ({
   keyValueTableData: [
     {
+      id: crypto.randomUUID(),
       optionType: REQUEST.PARAMS,
       isChecked: false,
       key: "",
       value: "",
     },
+
     {
+      id: crypto.randomUUID(),
       optionType: COMMON.HEADERS,
       isChecked: true,
       key: REQUEST.CACHE_CONTROL,
       value: REQUEST.NO_CACHE,
     },
     {
+      id: crypto.randomUUID(),
       optionType: COMMON.HEADERS,
       isChecked: true,
       key: REQUEST.ACCEPT,
       value: REQUEST.ANY_MIME_TYPE,
     },
     {
+      id: crypto.randomUUID(),
       optionType: COMMON.HEADERS,
       isChecked: true,
       key: REQUEST.ACCEPT_ENCODING,
       value: `${REQUEST.GZIP},${REQUEST.DEFLATE}`,
     },
     {
+      id: crypto.randomUUID(),
       optionType: COMMON.HEADERS,
       isChecked: true,
       key: REQUEST.CONNECTION,
       value: REQUEST.KEEP_ALIVE,
     },
-
     {
+      id: crypto.randomUUID(),
       optionType: COMMON.HEADERS,
       isChecked: false,
       key: "",
       value: "",
     },
+    
     {
+      id: crypto.randomUUID(),
       optionType: REQUEST.FORM_DATA,
       isChecked: false,
       key: "",
       value: "",
     },
     {
+      id: crypto.randomUUID(),
       optionType: REQUEST.FORM_URLENCODED,
       isChecked: false,
       key: "",
@@ -60,26 +69,26 @@ const keyValueTableDataSlice: StateCreator<
     },
   ],
 
-  handleRequestCheckbox: (dataIndex) =>
+  handleRequestCheckbox: (dataId) =>
     set((state) => ({
-      keyValueTableData: state.keyValueTableData.map((tableData, index) =>
-        dataIndex === index
+      keyValueTableData: state.keyValueTableData.map((tableData) =>
+        dataId === tableData.id
           ? { ...tableData, isChecked: !tableData.isChecked }
           : tableData,
       ),
     })),
 
-  handleRequestKey: (dataIndex, detail) =>
+  handleRequestKey: (dataId, detail) =>
     set((state) => ({
-      keyValueTableData: state.keyValueTableData.map((tableData, index) =>
-        dataIndex === index ? { ...tableData, key: detail } : tableData,
+      keyValueTableData: state.keyValueTableData.map((tableData) =>
+        dataId === tableData.id ? { ...tableData, key: detail } : tableData,
       ),
     })),
 
-  handleRequestValue: (dataIndex, detail) =>
+  handleRequestValue: (dataId, detail) =>
     set((state) => ({
-      keyValueTableData: state.keyValueTableData.map((tableData, index) =>
-        dataIndex === index ? { ...tableData, value: detail } : tableData,
+      keyValueTableData: state.keyValueTableData.map((tableData) =>
+        dataId === tableData.id ? { ...tableData, value: detail } : tableData,
       ),
     })),
 
@@ -87,6 +96,7 @@ const keyValueTableDataSlice: StateCreator<
     set((state) => ({
       keyValueTableData: [
         {
+          id: crypto.randomUUID(),
           optionType: COMMON.HEADERS,
           isChecked: true,
           key: REQUEST.CONTENT_TYPE,
@@ -109,6 +119,7 @@ const keyValueTableDataSlice: StateCreator<
       keyValueTableData: [
         ...state.keyValueTableData,
         {
+          id: crypto.randomUUID(),
           optionType: type,
           isChecked: false,
           key: "",
@@ -117,10 +128,10 @@ const keyValueTableDataSlice: StateCreator<
       ],
     })),
 
-  deleteTableRow: (dataIndex) => {
+  deleteTableRow: (dataId) => {
     set((state) => ({
       keyValueTableData: state.keyValueTableData.filter(
-        (_, index) => index !== dataIndex,
+        (tableData) => tableData.id !== dataId,
       ),
     }));
   },
