@@ -6,6 +6,11 @@
   "repository": {
     "url": "https://github.com/lien-hung/api-tester"
   },
+  "author": {
+    "name": "Lien Hung Trinh",
+    "url": "https://github.com/lien-hung",
+    "email": "lienhungtrinh@gmail.com"
+  },
   "version": "1.0.0",
   "engines": {
     "vscode": "^1.107.0"
