@@ -66,6 +66,10 @@ export async function activate(context: vscode.ExtensionContext) {
 		}
 
 		setTimeout(() => {	
+			if (!currentPanel) {
+				return;
+			}
+
 			const requestHistory = stateManager.getState(COLLECTION.HISTORY_COLLECTION);
 			const selectedRequest = filterObjectKey(
 				requestHistory,
@@ -73,7 +77,7 @@ export async function activate(context: vscode.ExtensionContext) {
 				COLLECTION.FILTERABLE_OBJECT_KEY
 			);
 	
-			if (currentPanel && selectedRequest) {
+			if (selectedRequest) {
 				currentPanel.webview.postMessage({
 					type: TYPE.SIDEBAR_DATA,
 					...selectedRequest.requestObject,

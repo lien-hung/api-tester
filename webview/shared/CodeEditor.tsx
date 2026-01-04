@@ -133,7 +133,7 @@ function CodeEditor({
       } else {
         editorRef.current?.updateOptions(OPTION.READ_ONLY_TRUE_OPTION);
       }
-    }, 300);
+    }, 500);
   }, [viewOption, language]);
 
   return (

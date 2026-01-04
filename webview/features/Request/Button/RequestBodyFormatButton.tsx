@@ -8,7 +8,7 @@ const RequestBodyFormatButton = () => {
 
   return (
     <Button primary={false} handleButtonClick={handleBeautifyButton}>
-      Beautify Editor
+      Beautify
     </Button>
   );
 };

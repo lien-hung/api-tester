@@ -17,6 +17,7 @@ const Button = ({
       type={buttonType}
       onClick={handleButtonClick}
       disabled={buttonStatus === COMMON.LOADING}
+      className={primary ? "" : "secondary"}
     >
       {children}
     </ButtonWrapper>
@@ -24,10 +25,10 @@ const Button = ({
 };
 
 const ButtonWrapper = styled.button<IButtonStyledProps>`
-  width: ${(props) => (props.primary ? "8rem" : "12rem")};
+  width: 8rem;
   margin-left: ${(props) => (props.primary ? "0" : "2.7rem")};
-  font-size: 1.2rem;
-  font-weight: 500;
+  font-size: ${(props) => (props.primary ? "1.2rem" : "1rem")};
+  font-weight: ${(props) => (props.primary ? "500" : "normal")};
   transition: background-color 0.2s ease-in-out;
 `;
 
