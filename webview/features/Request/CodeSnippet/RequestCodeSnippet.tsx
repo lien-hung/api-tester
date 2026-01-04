@@ -129,7 +129,7 @@ const RequestCodeSnippet = () => {
               value={label}
               variant-type={variants[0]}
             >
-              {label === "csharp" ? "C#" : label}
+              {label === "csharp" ? "C#" : (label === "NodeJs" ? "Node.js" : label)}
             </option>
           ))}
         </SelectOptionWrapper>

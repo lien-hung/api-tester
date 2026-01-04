@@ -68,7 +68,7 @@ const OPTION = {
       key: "csharp",
       label: "csharp",
       editorLanguage: "csharp",
-      variants: ["RestSharp"],
+      variants: ["HttpClient", "RestSharp"],
     },
     {
       key: "curl",
@@ -80,7 +80,7 @@ const OPTION = {
       key: "dart",
       label: "Dart",
       editorLanguage: "dart",
-      variants: ["http"],
+      variants: ["dio", "http"],
     },
     {
       key: "go",
@@ -107,8 +107,14 @@ const OPTION = {
       variants: ["Fetch", "jQuery", "XHR"],
     },
     {
+      key: "kotlin",
+      label: "Kotlin",
+      editorLanguage: "kotlin",
+      variants: ["Okhttp"],
+    },
+    {
       key: "nodejs",
-      label: "Node.js",
+      label: "NodeJs",
       editorLanguage: "javascript",
       variants: ["Axios", "Native", "Request", "Unirest"],
     },
@@ -133,7 +139,7 @@ const OPTION = {
     {
       key: "powershell",
       label: "PowerShell",
-      editorLanguage: "powershell",
+      editorLanguage: "shell",
       variants: ["RestMethod"],
     },
     {
@@ -153,6 +159,12 @@ const OPTION = {
       label: "Ruby",
       editorLanguage: "ruby",
       variants: ["Net::HTTP"],
+    },
+    {
+      key: "rust",
+      label: "Rust",
+      editorLanguage: "rust",
+      variants: ["reqwest"],
     },
     {
       key: "shell",
