@@ -65,12 +65,7 @@ export async function activate(context: vscode.ExtensionContext) {
 			vscode.commands.executeCommand(COMMAND.MAIN_WEBVIEW_PANEL);
 		}
 
-		setTimeout(() => {
-			// Check if current panel is active after command execution
-			if (!currentPanel) {
-				return;
-			}
-	
+		setTimeout(() => {	
 			const requestHistory = stateManager.getState(COLLECTION.HISTORY_COLLECTION);
 			const selectedRequest = filterObjectKey(
 				requestHistory,
@@ -78,7 +73,7 @@ export async function activate(context: vscode.ExtensionContext) {
 				COLLECTION.FILTERABLE_OBJECT_KEY
 			);
 	
-			if (selectedRequest) {
+			if (currentPanel && selectedRequest) {
 				currentPanel.webview.postMessage({
 					type: TYPE.SIDEBAR_DATA,
 					...selectedRequest.requestObject,

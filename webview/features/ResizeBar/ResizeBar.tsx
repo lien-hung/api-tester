@@ -65,9 +65,9 @@ const ResizeBar = () => {
 };
 
 const ResizeBarHitBox = styled.div`
-  width: 1px;
+  width: 1.5px;
   height: 100vh;
-  background: grey;
+  background: rgba(128, 128, 128, 0.7);
   display: inline-block;
   align-self: stretch;
   align-items: center;

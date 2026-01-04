@@ -61,7 +61,7 @@ const RequestBodySelectMenu = () => {
                 }
                 onChange={handleBodyOptionChoice}
               />
-              {option}
+              <span>{option}</span>
             </label>
           </RadioInputWrapper>
         ))}
@@ -80,15 +80,38 @@ const RequestBodySelectMenu = () => {
 const RadioInputWrapper = styled.div`
   margin: 0.5rem 1rem 0.5rem 0;
 
-  input {
-    width: auto;
-    margin-right: 0.7rem;
-    cursor: pointer;
-  }
-
   label {
     display: flex;
     user-select: none;
+    position: relative;
+
+    input {
+      appearance: none;
+      position: absolute;
+      left: 0;
+
+      &:before {
+        content: '';
+        position: absolute;
+        width: 14px; height: 14px;
+        border: 1px solid rgba(128, 128, 128, 0.7);
+        border-radius: 100%;
+        left: 0;
+      }
+
+      &:checked:after {
+        content: '';
+        position: absolute;
+        left: 3px; top: 3px;
+        background: var(--vscode-button-background);
+        width: 8px; height: 8px;
+        border-radius: 100%;
+      }
+    }
+
+    span {
+      padding-left: 2rem;
+    }
   }
 `;
 

@@ -38,20 +38,24 @@ function CodeEditor({
       return;
     }
 
-    const currentEditor = document.querySelector("body");
+    const currentEditor = document.querySelector("html");
     if (!currentEditor) {
+      return;
+    }
+
+    const currentBody = currentEditor.querySelector("body");
+    if (!currentBody) {
       return;
     }
 
     const currentStyles = window.getComputedStyle(currentEditor);
     monacoRef.current.editor.defineTheme("currentTheme", {
-      base: "vs-dark",
+      base: currentBody.classList.contains("vscode-light") ? "vs" : "vs-dark",
       inherit: true,
       rules: [],
       colors: {
         // Foreground and background
         "foreground": currentStyles.getPropertyValue("--vscode-foreground"),
-        "editor.foreground": currentStyles.getPropertyValue("--vscode-editor-foreground"),
         "editor.background": currentStyles.getPropertyValue("--vscode-editor-background"),
         
         // Cursor
@@ -63,13 +67,18 @@ function CodeEditor({
 
         // Suggest widget (IntelliSense)
         "editorSuggestWidget.background": currentStyles.getPropertyValue("--vscode-editorSuggestWidget-background"),
-        "editorSuggestWidget.border": currentStyles.getPropertyValue("--vscode-editorSuggestWidget-border"),
         "editorSuggestWidget.foreground": currentStyles.getPropertyValue("--vscode-editorSuggestWidget-foreground"),
-        "editorSuggestWidget.selectedBackground": currentStyles.getPropertyValue("--vscode-editorSuggestWidget-selectedBackground"),
+        "editorSuggestWidget.focusHighlightForeground": currentStyles.getPropertyValue("--vscode-editorSuggestWidget-focusHighlightForeground"),
         "editorSuggestWidget.highlightForeground": currentStyles.getPropertyValue("--vscode-editorSuggestWidget-highlightForeground"),
+        "editorSuggestWidget.selectedBackground": currentStyles.getPropertyValue("--vscode-editorSuggestWidget-selectedBackground"),
+        "editorSuggestWidget.selectedForeground": currentStyles.getPropertyValue("--vscode-editorSuggestWidget-selectedForeground"),
         
+        // Sticky scroll
+        "editorStickyScroll.shadow": "#00000022",
+
         // Hover widget (variable/prop/method info etc.)
         "editorHoverWidget.background": currentStyles.getPropertyValue("--vscode-editorHoverWidget-background"),
+        "editorHoverWidget.focusHighlightForeground": currentStyles.getPropertyValue("--vscode-editorHoverWidget-focusHighlightForeground"),
         "editorHoverWidget.highlightForeground": currentStyles.getPropertyValue("--vscode-editorHoverWidget-highlightForeground"),
 
         // Text selection
@@ -149,19 +158,16 @@ function CodeEditor({
 const EditorWrapper = styled.div`
   flex: 0 1 auto;
   margin-top: 2rem;
-  border: 0.1rem solid grey;
+  border: 0.1rem solid rgba(128, 128, 128, 0.7);
   border-radius: 0.4rem;
   height: 100%;
 
   .monaco-editor {
-    .suggest-widget, .suggest-details {
-      border: var(--vscode-editorHoverWidget-border);
-    }
-
     .view-overlays {
       .current-line {
         background-color: var(--vscode-editor-lineHighlightBackground);
       }
+        
       .current-line-exact {
         border: var(--vscode-editor-lineHighlightBorder);
       }

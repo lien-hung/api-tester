@@ -24,7 +24,7 @@ const ResponseMetaData = ({
     <ResponseMetaDataContainer>
       {OPTION.RESPONSE_RESULT_INFORMATION.map((option, index) => (
         <MetaDataContainer
-          secondary={index === 0 && statusCode < 200 && statusCode > 299}
+          secondary={index === 0 && (statusCode < 200 || statusCode > 299)}
           key={RESPONSE.METADATA + index}
         >
           <span>{option}:</span>
