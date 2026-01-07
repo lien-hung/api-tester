@@ -41,6 +41,7 @@ export interface IBodyRawData {
   javascript: string;
   json: string;
   html: string;
+  xml: string;
 }
 
 export interface IHeaderAuth {
@@ -64,13 +65,6 @@ export interface IAuthData {
   username: string;
   password: string;
   token: string;
-}
-
-export interface IBodyRawData {
-  text: string;
-  javascript: string;
-  json: string;
-  html: string;
 }
 
 export interface IKeyValueTable {

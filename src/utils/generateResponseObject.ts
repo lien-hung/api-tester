@@ -39,9 +39,7 @@ async function generateResponseObject(
       statusText: response.statusText,
     };
 
-    responseDataObject.responseSize = Buffer.from(
-      JSON.stringify(responseDataObject),
-    ).length;
+    responseDataObject.responseSize = Buffer.from(JSON.stringify(responseDataObject)).length;
     responseDataObject.type = TYPE.RESPONSE;
     responseDataObject.headersLength = headersSize;
     responseDataObject.requestTime = totalRequestTime;

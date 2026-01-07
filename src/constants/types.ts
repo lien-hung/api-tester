@@ -5,7 +5,7 @@ const TYPE = {
   
   WEBVIEW_TYPE: "RestApiClient",
   THEME_CHANGED: "Theme changed",
-  SIDEBAR_DATA: "Selected Collection Data",
+  TREEVIEW_DATA: "Selected Collection Data",
   
   BODY_RAW: "Raw",
   BODY_FORM_URLENCODED: "x-www-form-urlencoded",

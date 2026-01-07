@@ -16,6 +16,7 @@ const OPTION = {
       headerField: "application/json",
     },
     { option: "HTML", headerField: "text/html" },
+    { option: "XML", headerField: "application/xml" },
   ],
   REQUEST_BODY_OPTIONS: [
     { option: "None", headerField: "" },

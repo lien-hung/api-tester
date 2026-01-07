@@ -70,6 +70,7 @@ const RequestBodySelectMenuOption = () => {
               javascript: string;
               json: string;
               html: string;
+              xml: string;
             }
             ]
           }

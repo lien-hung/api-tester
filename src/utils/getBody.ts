@@ -20,6 +20,7 @@ function getBody(
         javascript: string;
         json: string;
         html: string;
+        xml: string;
       }
     ];
   }

@@ -5,7 +5,7 @@ function generateParameterString(searchParamsData: IParameterString[]) {
     return "";
   }
 
-  const searchParams = searchParamsData.map((param) => `${param.key}=${param.value}`);
+  const searchParams = searchParamsData.map((param) => param.value ? `${param.key}=${param.value}` : param.key);
   const parameterString = "?" + searchParams.join("&");
   return parameterString;
 }

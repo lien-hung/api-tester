@@ -8,8 +8,7 @@ const RESPONSE = {
   
   RESPONSE: "Response",
   ERROR: "Error",
-  COLLECTION_REQUEST: "Collection Request",
-  SIDEBAR_DATA: "Selected Collection Data",
+  TREEVIEW_DATA: "Selected Collection Data",
 };
 
 export default RESPONSE;

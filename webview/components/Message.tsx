@@ -11,7 +11,7 @@ const MessageWrapper = styled.div<IMessageStyledProps>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: ${(props) => (props.primary ? "1rem" : " 3.8rem")};
+  margin-top: ${(props) => (props.primary ? "1rem" : "3.8rem")};
   overflow-x: hidden;
 
   h2 {
@@ -44,8 +44,8 @@ const MessageWrapper = styled.div<IMessageStyledProps>`
   }
 
   img {
-    margin-top: ${(props) => (props.primary ? "2rem" : " 0.5rem")};
-    width: ${(props) => (props.primary ? "13rem" : " 2.5rem")};
+    margin-top: ${(props) => (props.primary ? "2rem" : "0.5rem")};
+    width: ${(props) => (props.primary ? "13rem" : "2.5rem")};
     opacity: 0.75;
   }
 
@@ -53,12 +53,6 @@ const MessageWrapper = styled.div<IMessageStyledProps>`
     margin: 1.3rem 0;
     opacity: 0.8;
     color: var(--vscode-foreground);
-  }
-
-  .sidebarEmptyIcon {
-    margin-bottom: 1.3rem;
-    font-size: 2rem;
-    opacity: 0.65;
   }
 `;
 

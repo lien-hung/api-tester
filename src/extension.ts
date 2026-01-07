@@ -79,7 +79,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	
 			if (selectedRequest) {
 				currentPanel.webview.postMessage({
-					type: TYPE.SIDEBAR_DATA,
+					type: TYPE.TREEVIEW_DATA,
 					...selectedRequest.requestObject,
 				});
 			}

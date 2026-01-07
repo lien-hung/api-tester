@@ -24,6 +24,7 @@ export interface BodyRawData {
   javascript: string;
   json: string;
   html: string;
+  xml: string;
 }
 
 export interface KeyValueTableData {
@@ -70,7 +71,7 @@ export interface IResponseDataHeader {
   value: string;
 }
 
-export interface IRequestDataSlice extends ISidebarResponse {
+export interface IRequestDataSlice extends ITreeViewResponse {
   codeSnippetValue: string;
   requestUrlParams: string;
   shouldShowPassword: boolean;
@@ -81,7 +82,7 @@ export interface IRequestDataSlice extends ISidebarResponse {
     variant: string;
     editorLanguage: string;
   };
-  bodyRawData: { text: string; javascript: string; json: string; html: string };
+  bodyRawData: BodyRawData;
   handleRequestUrlChange: (url: string) => void;
   handleRequestMethodChange: (method: string) => void;
   handleRequestAuthType: (authOption: string) => void;
@@ -101,11 +102,11 @@ export interface IRequestDataSlice extends ISidebarResponse {
   ) => void;
   handleCodeSnippetVariantChange: (variantOption: string) => void;
   setCodeSnippetValue: (value: string) => void;
-  handleSidebarCollectionClick: (value: ISidebarResponse) => void;
+  handleTreeViewClick: (value: ITreeViewResponse) => void;
 }
 
-export interface ISidebarResponse {
-  authData: { username: string; password: string; token: string };
+export interface ITreeViewResponse {
+  authData: AuthData;
   authOption: string;
   requestUrl: string;
   requestMethod: string;
@@ -122,5 +123,5 @@ export interface IKeyValueTableDataSlice {
   handleRequestCheckbox: (id: string) => void;
   handleRequestKey: (id: string, detail: string) => void;
   handleRequestValue: (id: string, detail: string) => void;
-  handleSidebarCollectionHeaders: (headers: KeyValueTableData[]) => void;
+  handleTreeViewTableData: (headers: KeyValueTableData[]) => void;
 }

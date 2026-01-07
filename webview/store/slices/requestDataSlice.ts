@@ -1,6 +1,6 @@
 import { StateCreator } from "zustand";
 import { REQUEST } from "../../constants";
-import { IRequestDataSlice, ISidebarResponse } from "./type";
+import { IRequestDataSlice, ITreeViewResponse } from "./type";
 
 const requestDataSlice: StateCreator<
   IRequestDataSlice,
@@ -24,7 +24,7 @@ const requestDataSlice: StateCreator<
     editorLanguage: "c",
   },
   authData: { username: "", password: "", token: "" },
-  bodyRawData: { text: "", javascript: "", json: "", html: "" },
+  bodyRawData: { text: "", javascript: "", json: "", html: "", xml: "" },
 
   handleRequestUrlChange: (url: string) => set(() => ({ requestUrl: url })),
 
@@ -86,7 +86,7 @@ const requestDataSlice: StateCreator<
   setCodeSnippetValue: (value: string) =>
     set(() => ({ codeSnippetValue: value })),
 
-  handleSidebarCollectionClick: (value: ISidebarResponse) =>
+  handleTreeViewClick: (value: ITreeViewResponse) =>
     set((state) => {
       return {
         ...state,

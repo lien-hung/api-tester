@@ -15,16 +15,16 @@ const ResponsePanel = () => {
     requestInProcess,
     handleResponseData,
     handleRequestProcessStatus,
-    handleSidebarCollectionHeaders,
-    handleSidebarCollectionClick,
+    handleTreeViewTableData,
+    handleTreeViewClick,
   } = useStore(
     useShallow((state) => ({
       responseData: state.responseData,
       requestInProcess: state.requestInProcess,
       handleResponseData: state.handleResponseData,
       handleRequestProcessStatus: state.handleRequestProcessStatus,
-      handleSidebarCollectionClick: state.handleSidebarCollectionClick,
-      handleSidebarCollectionHeaders: state.handleSidebarCollectionHeaders,
+      handleTreeViewClick: state.handleTreeViewClick,
+      handleTreeViewTableData: state.handleTreeViewTableData,
     }))
   );
 
@@ -35,9 +35,7 @@ const ResponsePanel = () => {
     } else if (event.data.type === RESPONSE.ERROR) {
       handleResponseData(event.data);
       handleRequestProcessStatus(RESPONSE.ERROR);
-    } else if (event.data.type === RESPONSE.COLLECTION_REQUEST) {
-      handleRequestProcessStatus(COMMON.LOADING);
-    } else if (event.data.type === RESPONSE.SIDEBAR_DATA) {
+    } else if (event.data.type === RESPONSE.TREEVIEW_DATA) {
       const {
         keyValueTableData,
         authData,
@@ -48,7 +46,7 @@ const ResponsePanel = () => {
         bodyRawOption,
       } = event.data;
 
-      handleSidebarCollectionClick({
+      handleTreeViewClick({
         authData,
         authOption,
         requestUrl,
@@ -57,7 +55,7 @@ const ResponsePanel = () => {
         bodyRawOption,
       });
 
-      handleSidebarCollectionHeaders(keyValueTableData);
+      handleTreeViewTableData(keyValueTableData);
     }
   };
 

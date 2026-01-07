@@ -10,6 +10,7 @@ export interface IBodyRawData {
   javascript: string;
   json: string;
   html: string;
+  xml: string;
 }
 
 export interface IAuthData {

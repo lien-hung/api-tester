@@ -52,7 +52,7 @@ const keyValueTableDataSlice: StateCreator<
       key: "",
       value: "",
     },
-    
+
     {
       id: crypto.randomUUID(),
       optionType: REQUEST.FORM_DATA,
@@ -136,12 +136,10 @@ const keyValueTableDataSlice: StateCreator<
     }));
   },
 
-  handleSidebarCollectionHeaders: (headers) => {
-    set(() => {
-      return {
-        keyValueTableData: [...headers],
-      };
-    });
+  handleTreeViewTableData: (data) => {
+    set(() => ({
+      keyValueTableData: [...data],
+    }));
   },
 });
 
