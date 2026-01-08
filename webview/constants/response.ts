@@ -1,9 +1,11 @@
 const RESPONSE = {
   TEXT: "text",
+
+  VIEW_FORMAT: "View Format",
   PRETTY: "Pretty",
   PREVIEW: "Preview",
+
   METADATA: "Metadata",
-  VIEW_FORMAT: "View Format",
   RESPONSE_BODY: "Response Body",
   
   RESPONSE: "Response",
