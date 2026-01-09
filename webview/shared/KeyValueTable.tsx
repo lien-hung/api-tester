@@ -100,13 +100,12 @@ const KeyValueTable = ({
                     {!readOnly && (
                       <th className="tableDelete">
                         {index !== filteredData.length - 1 && (
-                          <IconButton
+                          <TableIconButton
                             type="button"
-                            className="tableIcon"
                             onClick={() => deleteTableRow && deleteTableRow(id)}
                           >
                             <img src={deleteIcon} />
-                          </IconButton>
+                          </TableIconButton>
                         )}
                       </th>
                     )}
@@ -121,11 +120,13 @@ const KeyValueTable = ({
   );
 };
 
-const IconButton = styled.button`
+const TableIconButton = styled.button`
   background: none;
+  display: none;
 
   &:hover {
-    background: none;
+    background-color: transparent;
+    opacity: 0.7;
   }
 `;
 
@@ -167,7 +168,7 @@ const Table = styled.table<{ readOnlyMode: boolean }>`
   }
 
   tbody tr {
-    &:hover .tableIcon {
+    &:hover button {
       display: inline-block;
     }
   }
@@ -188,14 +189,6 @@ const Table = styled.table<{ readOnlyMode: boolean }>`
 
   .tableDelete {
     border-left: hidden;
-  }
-
-  .tableIcon {
-    display: none;
-
-    &:hover {
-      opacity: 0.7;
-    }
   }
 `;
 

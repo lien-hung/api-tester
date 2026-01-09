@@ -74,7 +74,6 @@ export interface IResponseDataHeader {
 export interface IRequestDataSlice extends ITreeViewResponse {
   codeSnippetValue: string;
   requestUrlParams: string;
-  shouldShowPassword: boolean;
   shouldBeautifyEditor: boolean;
   requestOption: string;
   codeSnippetOption: {
@@ -87,7 +86,6 @@ export interface IRequestDataSlice extends ITreeViewResponse {
   handleRequestMethodChange: (method: string) => void;
   handleRequestAuthType: (authOption: string) => void;
   handleRequestAuthData: (authType: string, data: string) => void;
-  handleShouldShowPassword: () => void;
   handleRequestParamsChange: (params: string) => void;
   handleRequestOptionChange: (option: string) => void;
   handleRequestAuthType: (type: string) => void;

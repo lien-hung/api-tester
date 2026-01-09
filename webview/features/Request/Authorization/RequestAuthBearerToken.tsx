@@ -21,7 +21,6 @@ const RequestAuthBearerToken = () => {
         <input
           name="token"
           placeholder="token"
-          className="authInputBox"
           value={authDataToken}
           onChange={(event) =>
             handleRequestAuthData(REQUEST.TOKEN, event.target.value)

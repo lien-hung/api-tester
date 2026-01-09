@@ -9,6 +9,10 @@ export interface IButtonProps {
 export interface IButtonStyledProps {
   primary: boolean;
   type?: string;
+
+}
+export interface ICommonChildProps {
+  children: ReactNode;
 }
 
 export interface ICopyIconProps {
@@ -19,10 +23,6 @@ export interface ICopyIconProps {
 export interface IDetailOptionProps {
   children: ReactNode;
   requestMenu?: boolean;
-}
-
-export interface ICommonChildProps {
-  children: ReactNode;
 }
 
 export interface IMenuOptionProps {

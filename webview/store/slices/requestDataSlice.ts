@@ -13,7 +13,6 @@ const requestDataSlice: StateCreator<
   requestUrlParams: "",
   bodyRawOption: "Text",
   bodyOption: REQUEST.NONE,
-  shouldShowPassword: false,
   requestMethod: REQUEST.GET,
   shouldBeautifyEditor: false,
   authOption: REQUEST.NO_AUTH,
@@ -56,9 +55,6 @@ const requestDataSlice: StateCreator<
     set((state) => ({
       bodyRawData: { ...state.bodyRawData, [rawOption]: data },
     })),
-
-  handleShouldShowPassword: () =>
-    set((state) => ({ shouldShowPassword: !state.shouldShowPassword })),
 
   handleBeautifyButton: () =>
     set((state) => ({
