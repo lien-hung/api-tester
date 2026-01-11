@@ -18,3 +18,11 @@ export interface IAuthData {
   password: string;
   token: string;
 }
+
+export interface IEditorTheme {
+  base: "vs" | "vs-dark";
+  colors: {
+    [key: string]: string;
+  };
+  fontFamily: string;
+}

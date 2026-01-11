@@ -4,6 +4,8 @@ import styled from "styled-components";
 
 import { COMMON, OPTION, REQUEST, RESPONSE } from "../constants";
 import ResponsePreview from "../features/Response/Preview/ResponsePreview";
+import { getCurrentTheme } from "../utils";
+import { IEditorTheme } from "../utils/type";
 
 interface ICodeEditorProps {
   language: string;
@@ -32,58 +34,19 @@ function CodeEditor({
 }: ICodeEditorProps) {
   const editorRef = useRef<any>(null);
   const monacoRef = useRef<Monaco>(null);
+  const currentThemeRef = useRef<IEditorTheme>(getCurrentTheme());
 
   const setEditorTheme = () => {
     if (!monacoRef.current) {
       return;
     }
 
-    const currentEditor = document.querySelector("html");
-    if (!currentEditor) {
-      return;
-    }
-
-    const currentBody = currentEditor.querySelector("body");
-    if (!currentBody) {
-      return;
-    }
-
-    const currentStyles = window.getComputedStyle(currentEditor);
+    currentThemeRef.current = getCurrentTheme();
     monacoRef.current.editor.defineTheme("currentTheme", {
-      base: currentBody.classList.contains("vscode-light") ? "vs" : "vs-dark",
+      base: currentThemeRef.current.base,
       inherit: true,
       rules: [],
-      colors: {
-        // Foreground and background
-        "foreground": currentStyles.getPropertyValue("--vscode-foreground"),
-        "editor.background": currentStyles.getPropertyValue("--vscode-editor-background"),
-        
-        // Cursor
-        "editorCursor.foreground": currentStyles.getPropertyValue("--vscode-editorCursor-foreground"),
-        
-        // Line numbers
-        "editorLineNumber.foreground": currentStyles.getPropertyValue("--vscode-editorLineNumber-foreground"),
-        "editorLineNumber.activeForeground": currentStyles.getPropertyValue("--vscode-editorLineNumber-activeForeground"),
-
-        // Suggest widget (IntelliSense)
-        "editorSuggestWidget.background": currentStyles.getPropertyValue("--vscode-editorSuggestWidget-background"),
-        "editorSuggestWidget.foreground": currentStyles.getPropertyValue("--vscode-editorSuggestWidget-foreground"),
-        "editorSuggestWidget.focusHighlightForeground": currentStyles.getPropertyValue("--vscode-editorSuggestWidget-focusHighlightForeground"),
-        "editorSuggestWidget.highlightForeground": currentStyles.getPropertyValue("--vscode-editorSuggestWidget-highlightForeground"),
-        "editorSuggestWidget.selectedBackground": currentStyles.getPropertyValue("--vscode-editorSuggestWidget-selectedBackground"),
-        "editorSuggestWidget.selectedForeground": currentStyles.getPropertyValue("--vscode-editorSuggestWidget-selectedForeground"),
-        
-        // Sticky scroll
-        "editorStickyScroll.shadow": "#00000022",
-
-        // Hover widget (variable/prop/method info etc.)
-        "editorHoverWidget.background": currentStyles.getPropertyValue("--vscode-editorHoverWidget-background"),
-        "editorHoverWidget.focusHighlightForeground": currentStyles.getPropertyValue("--vscode-editorHoverWidget-focusHighlightForeground"),
-        "editorHoverWidget.highlightForeground": currentStyles.getPropertyValue("--vscode-editorHoverWidget-highlightForeground"),
-
-        // Text selection
-        "selection.background": currentStyles.getPropertyValue("--vscode-selection-background"),
-      }
+      colors: currentThemeRef.current.colors,
     });
     monacoRef.current.editor.setTheme("currentTheme");
   }
@@ -146,7 +109,10 @@ function CodeEditor({
           height="100%"
           language={language}
           value={codeEditorValue}
-          options={editorOption}
+          options={{
+            ...editorOption,
+            fontFamily: currentThemeRef.current.fontFamily
+          }}
           onChange={handleEditorChange}
           onMount={handleEditorDidMount}
         />
@@ -156,11 +122,8 @@ function CodeEditor({
 };
 
 const EditorWrapper = styled.div`
-  flex: 0 1 auto;
+  flex: 1 1 auto;
   margin-top: 2rem;
-  border: 0.1rem solid rgba(128, 128, 128, 0.7);
-  border-radius: 0.4rem;
-  height: 100%;
 
   .monaco-editor {
     .view-overlays {

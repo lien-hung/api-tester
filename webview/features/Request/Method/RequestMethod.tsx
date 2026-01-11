@@ -19,9 +19,13 @@ const RequestMethod = () => {
       value={requestMethod}
       onChange={(event) => handleRequestMethodChange(event.target.value)}
     >
-      {OPTION.REQUEST_METHOD_OPTIONS.map((requestMethod, index) => (
-        <option key={REQUEST.METHOD + index} value={requestMethod}>
-          {requestMethod}
+      <button>
+        {/* @ts-ignore */}
+        <selectedcontent></selectedcontent>
+      </button>
+      {OPTION.REQUEST_METHOD_OPTIONS.map((method, index) => (
+        <option key={REQUEST.METHOD + index} value={method}>
+          <span id={method.toLowerCase()}>{method}</span>
         </option>
       ))}
     </MethodSelectOptionWrapper>
@@ -31,10 +35,37 @@ const RequestMethod = () => {
 const MethodSelectOptionWrapper = styled.select`
   width: 9rem;
   height: 3rem;
-  padding-left: 0.6rem;
+  padding: 0.75rem;
   font-size: 1.15rem;
-  color: var(--default-text);
   font-weight: 500;
+  border-radius: 0;
+  appearance: base-select;
+
+  &::picker(select) {
+    appearance: base-select;
+    border: none;
+  }
+
+  option {
+    background: var(--vscode-input-background);
+    padding: 0.25rem 0 0.25rem 0.5rem;
+
+    &::checkmark {
+      display: none;
+    }
+
+    &:hover, &:focus {
+      opacity: 0.7;
+    }
+  }
+
+  #get     { color: #6BDD9A; }
+  #post    { color: #FFE47E; }
+  #put     { color: #74AEF6; }
+  #patch   { color: #C0A8E1; }
+  #delete  { color: #F79A8E; }
+  #head    { color: #6BDD9A; }
+  #options { color: #F15EB0; }
 `;
 
 export default RequestMethod;
