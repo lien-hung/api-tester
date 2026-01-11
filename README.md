@@ -24,7 +24,7 @@ This extension acts as a UI-based HTTP client to send requests to your desired e
   - Request body:
     - Form Data
     - `x-www-form-urlencoded`
-    - Raw: Text, JavaScript, JSON, HTML
+    - Raw: Text, JavaScript, JSON, HTML, XML **(NEW)**
 - Code snippets for your current request
 - Multiple response preview options and basic metadata
 - Tree view of your request history data
