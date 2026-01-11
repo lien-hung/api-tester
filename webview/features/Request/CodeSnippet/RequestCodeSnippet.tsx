@@ -1,6 +1,5 @@
 // @ts-ignore
 import codegen from "postman-code-generators/lib";
-import { Request } from "postman-collection";
 import React, { useEffect, useMemo, ChangeEvent } from "react";
 import styled from "styled-components";
 import { useDebounce } from "use-debounce";
@@ -56,7 +55,7 @@ const RequestCodeSnippet = () => {
     }
   };
 
-  const memoizedSdkRequestObject = useMemo(
+  const memoizedRequestObject = useMemo(
     () =>
       generateSdkRequestObject(
         debouncedUrlValue,
@@ -67,7 +66,6 @@ const RequestCodeSnippet = () => {
         bodyOption,
         bodyRawOption,
         bodyRawData,
-        Request,
       ),
     [
       debouncedUrlValue,
@@ -99,7 +97,7 @@ const RequestCodeSnippet = () => {
     codegen.convert(
       codeSnippetOption.language.toLowerCase(),
       codeSnippetOption.variant,
-      memoizedSdkRequestObject,
+      memoizedRequestObject,
       {},
       (error: string, snippet: string) => {
         if (error) {

@@ -1,5 +1,7 @@
-import { COMMON, REQUEST } from "../constants";
 import { Buffer } from "buffer";
+import { Request } from "postman-collection";
+
+import { COMMON, REQUEST } from "../constants";
 import { IAuthData, IBodyRawData, IParameterString } from "./type";
 
 const generateSdkRequestObject = (
@@ -10,8 +12,7 @@ const generateSdkRequestObject = (
   authData: IAuthData,
   bodyOption: string,
   bodyRawOption: string,
-  bodyRawData: IBodyRawData,
-  SdkInstance: any,
+  bodyRawData: IBodyRawData
 ) => {
   const requestHeader = keyValueTableData.filter(
     (data) => data.optionType === COMMON.HEADERS && data.key.length > 0,
@@ -20,25 +21,23 @@ const generateSdkRequestObject = (
     (data) => data.optionType === bodyOption && data.key.length > 0,
   );
   const { username, password, token } = authData;
-  let authHeaderObject = null;
-  let authMode = "";
+  let authHeaderObject: any = undefined;
+  let authMode: "noauth" | "bearer" | "basic" = "noauth";
   let bodyMode = "";
 
   switch (authOption) {
-    case REQUEST.BASIC_AUTH:
-      authMode = "basic";
-      authHeaderObject = {
-        key: REQUEST.AUTH,
-        value: `Basic ${Buffer.from(username + ":" + password).toString(
-          "base64",
-        )}`,
-      };
-      break;
     case REQUEST.BEARER_TOKEN:
       authMode = "bearer";
       authHeaderObject = {
         key: REQUEST.AUTH,
         value: `Bearer ${token}`,
+      };
+      break;
+    case REQUEST.BASIC_AUTH:
+      authMode = "basic";
+      authHeaderObject = {
+        key: REQUEST.AUTH,
+        value: `Basic ${Buffer.from(`${username}:${password}`).toString("base64")}`,
       };
       break;
     default:
@@ -59,17 +58,12 @@ const generateSdkRequestObject = (
       break;
   }
 
-  const sdkObject = new SdkInstance({
+  const requestObject = new Request({
     method: method,
     url: url,
-    header: { ...requestHeader, authHeaderObject },
+    header: [...requestHeader, authHeaderObject],
     body: {
       mode: bodyMode,
-      options: {
-        raw: {
-          language: bodyRawOption.toLowerCase(),
-        },
-      },
       [bodyMode]: bodyData.length
         ? bodyData
         : bodyRawData[bodyRawOption.toLowerCase() as keyof IBodyRawData],
@@ -80,7 +74,7 @@ const generateSdkRequestObject = (
     },
   });
 
-  return sdkObject;
+  return requestObject;
 };
 
 export default generateSdkRequestObject;
