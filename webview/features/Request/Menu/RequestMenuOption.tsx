@@ -30,7 +30,7 @@ const RequestMenuOption = () => {
         <KeyValueTable
           type={requestOption}
           {...keyValueProps}
-          readOnly={false}
+          tableReadOnly={false}
           title=""
         />
       );

@@ -15,6 +15,7 @@ const keyValueTableDataSlice: StateCreator<
       isChecked: false,
       key: "",
       value: "",
+      rowReadOnly: false,
     },
 
     {
@@ -23,6 +24,7 @@ const keyValueTableDataSlice: StateCreator<
       isChecked: true,
       key: REQUEST.CACHE_CONTROL,
       value: REQUEST.NO_CACHE,
+      rowReadOnly: true,
     },
     {
       id: crypto.randomUUID(),
@@ -30,6 +32,7 @@ const keyValueTableDataSlice: StateCreator<
       isChecked: true,
       key: REQUEST.ACCEPT,
       value: REQUEST.ANY_MIME_TYPE,
+      rowReadOnly: true,
     },
     {
       id: crypto.randomUUID(),
@@ -37,6 +40,7 @@ const keyValueTableDataSlice: StateCreator<
       isChecked: true,
       key: REQUEST.ACCEPT_ENCODING,
       value: `${REQUEST.GZIP},${REQUEST.DEFLATE}`,
+      rowReadOnly: true,
     },
     {
       id: crypto.randomUUID(),
@@ -44,6 +48,7 @@ const keyValueTableDataSlice: StateCreator<
       isChecked: true,
       key: REQUEST.CONNECTION,
       value: REQUEST.KEEP_ALIVE,
+      rowReadOnly: true,
     },
     {
       id: crypto.randomUUID(),
@@ -51,14 +56,16 @@ const keyValueTableDataSlice: StateCreator<
       isChecked: false,
       key: "",
       value: "",
+      rowReadOnly: false,
     },
-
+    
     {
       id: crypto.randomUUID(),
       optionType: REQUEST.FORM_DATA,
       isChecked: false,
       key: "",
       value: "",
+      rowReadOnly: false,
     },
     {
       id: crypto.randomUUID(),
@@ -66,6 +73,7 @@ const keyValueTableDataSlice: StateCreator<
       isChecked: false,
       key: "",
       value: "",
+      rowReadOnly: false,
     },
   ],
 
@@ -101,6 +109,7 @@ const keyValueTableDataSlice: StateCreator<
           isChecked: true,
           key: REQUEST.CONTENT_TYPE,
           value: headerValue,
+          rowReadOnly: true,
         },
         ...state.keyValueTableData,
       ],
@@ -124,6 +133,7 @@ const keyValueTableDataSlice: StateCreator<
           isChecked: false,
           key: "",
           value: "",
+          rowReadOnly: false,
         },
       ],
     })),

@@ -51,7 +51,7 @@ const RequestBodySelectMenuOption = () => {
     case REQUEST.FORM_URLENCODED:
       return (
         <KeyValueTable
-          readOnly={false}
+          tableReadOnly={false}
           type={bodyOption}
           title={bodyOption}
           {...keyValueProps}

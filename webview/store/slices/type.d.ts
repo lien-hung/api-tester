@@ -33,6 +33,7 @@ export interface KeyValueTableData {
   isChecked: boolean;
   key: string;
   value: string;
+  rowReadOnly: boolean;
 }
 
 export interface IResizeBarSlice {
@@ -116,8 +117,8 @@ export interface IKeyValueTableDataSlice {
   keyValueTableData: KeyValueTableData[];
   addNewTableRow: (type: string) => void;
   deleteTableRow: (id: string) => void;
-  removeRequestBodyHeaders: () => void;
   addRequestBodyHeaders: (value: string) => void;
+  removeRequestBodyHeaders: () => void;
   handleRequestCheckbox: (id: string) => void;
   handleRequestKey: (id: string, detail: string) => void;
   handleRequestValue: (id: string, detail: string) => void;

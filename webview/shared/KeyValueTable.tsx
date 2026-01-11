@@ -7,7 +7,7 @@ import deleteIcon from "../assets/svg/delete-icon.svg";
 interface IKeyValueTableProps {
   type?: string;
   title?: string;
-  readOnly: boolean;
+  tableReadOnly: boolean;
   addNewTableRow?: (type: string, id?: string) => void;
   deleteTableRow?: (id: string) => void;
   handleRequestKey?: (id: string, value: string) => void;
@@ -19,7 +19,7 @@ interface IKeyValueTableProps {
 const KeyValueTable = ({
   type,
   title,
-  readOnly,
+  tableReadOnly,
   addNewTableRow,
   deleteTableRow,
   handleRequestKey,
@@ -34,24 +34,24 @@ const KeyValueTable = ({
     <TableContainerWrapper>
       <TableContainer>
         {title && <h2>{title}</h2>}
-        <Table readOnlyMode={readOnly}>
+        <Table readOnlyMode={tableReadOnly}>
           <thead>
             <tr>
-              {!readOnly && <th></th>}
+              {!tableReadOnly && <th></th>}
               <th>Key</th>
               <th>Value</th>
-              {!readOnly && <th className="tableDelete"></th>}
+              {!tableReadOnly && <th className="tableDelete"></th>}
             </tr>
           </thead>
           <tbody>
             {filteredData.map(
               (
-                { id, isChecked, key, value }: any,
+                { id, isChecked, key, value, rowReadOnly }: any,
                 index: number,
               ) => (
                 <React.Fragment key={id}>
-                  <tr>
-                    {!readOnly && (
+                  <tr className={rowReadOnly && "readOnlyRow"}>
+                    {!tableReadOnly && (
                       <th className="tableCheckbox">
                         {index !== filteredData.length - 1 && (
                           <input
@@ -78,7 +78,7 @@ const KeyValueTable = ({
                           }
                           handleRequestKey && handleRequestKey(id, event.target.value);
                         }}
-                        readOnly={readOnly}
+                        readOnly={tableReadOnly || rowReadOnly}
                       />
                     </td>
                     <td>
@@ -94,12 +94,12 @@ const KeyValueTable = ({
                           }
                           handleRequestValue && handleRequestValue(id, event.target.value);
                         }}
-                        readOnly={readOnly}
+                        readOnly={tableReadOnly || rowReadOnly}
                       />
                     </td>
-                    {!readOnly && (
+                    {!tableReadOnly && (
                       <th className="tableDelete">
-                        {index !== filteredData.length - 1 && (
+                        {!rowReadOnly && index !== filteredData.length - 1 && (
                           <TableIconButton
                             type="button"
                             onClick={() => deleteTableRow && deleteTableRow(id)}
@@ -179,6 +179,10 @@ const Table = styled.table<{ readOnlyMode: boolean }>`
     font-style: ${(props) => props.readOnlyMode && "italic"};
     font-weight: ${(props) => props.readOnlyMode && "300"};
     opacity: ${(props) => props.readOnlyMode && "0.75"};
+  }
+
+  .readOnlyRow input {
+    font-style: italic;
   }
 
   .tableCheckbox, .tableDelete {

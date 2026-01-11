@@ -68,7 +68,8 @@ const RequestUrl = () => {
           optionType: REQUEST.PARAMS,
           isChecked: true,
           key: p.key,
-          value: p.value
+          value: p.value,
+          rowReadOnly: false,
         })));
       } else {
         // Remove excess params from the end of URL
