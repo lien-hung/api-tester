@@ -10,10 +10,10 @@ const RequestAuthSelectMenuOption = () => {
   const authOption = useStore((state) => state.authOption);
 
   switch (authOption) {
-    case REQUEST.BASIC_AUTH:
-      return <RequestBasicAuth />;
     case REQUEST.BEARER_TOKEN:
       return <RequestBearerToken />;
+    case REQUEST.BASIC_AUTH:
+      return <RequestBasicAuth />;
     default:
       return <RequestNoAuth />;
   }

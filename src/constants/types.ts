@@ -13,8 +13,8 @@ const TYPE = {
   
   AUTHORIZATION: "Authorization",
   NO_AUTH: "No Auth",
-  BASIC_AUTH: "Basic Auth",
   BEARER_TOKEN: "Bearer Token",
+  BASIC_AUTH: "Basic Auth",
 };
 
 export default TYPE;

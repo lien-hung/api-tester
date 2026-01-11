@@ -20,7 +20,7 @@ const RequestAuthBearerToken = () => {
         <label htmlFor="token">Token:</label>
         <input
           name="token"
-          placeholder="token"
+          placeholder="Token"
           value={authDataToken}
           onChange={(event) =>
             handleRequestAuthData(REQUEST.TOKEN, event.target.value)

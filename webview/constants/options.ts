@@ -1,5 +1,5 @@
 const OPTION = {
-  AUTHORIZATION_OPTIONS: ["No Auth", "Basic Auth", "Bearer Token"],
+  AUTHORIZATION_OPTIONS: ["No Auth", "Bearer Token", "Basic Auth"],
   REQUEST_METHOD_OPTIONS: ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"],
   REQUEST_MENU_OPTIONS: [
     "Params",
@@ -47,14 +47,7 @@ const OPTION = {
     scrollBeyondLastLine: false,
     readOnly: true,
   },
-  REQUEST_RAW_BODY_EDITOR_OPTIONS: {
-    tabSize: 2,
-    readOnly: false,
-    smoothScrolling: true,
-    renderWhitespace: false,
-    minimap: { enabled: false },
-    scrollBeyondLastLine: false,
-  },
+  EDITOR_DEFAULT_FONT_FAMILY: `"SF Mono", Monaco, Menlo, Consolas, "Ubuntu Mono", "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace`,
   READ_ONLY_TRUE_OPTION: { readOnly: true, lineNumbers: "on" },
   READ_ONLY_FALSE_OPTION: { readOnly: false, lineNumbers: "on" },
   LINE_NUMBER_OPTION: { readOnly: true, lineNumbers: "off" },

@@ -29,7 +29,7 @@ const RequestBasicAuth = () => {
         <input
           type="text"
           name="username"
-          placeholder="username"
+          placeholder="Username"
           value={authData.username}
           onChange={(event) =>
             handleRequestAuthData(REQUEST.USERNAME, event.target.value)
@@ -42,7 +42,7 @@ const RequestBasicAuth = () => {
           <input
             type={shouldShowPassword ? "text" : "password"}
             name="password"
-            placeholder="password"
+            placeholder="Password"
             value={authData.password}
             onChange={(event) =>
               handleRequestAuthData(REQUEST.PASSWORD, event.target.value)

@@ -3,11 +3,11 @@ const REQUEST = {
   METHOD: "Method",
   REQUEST: "Request",
   URL_REQUEST: "Url Request",
-
+  
   // Menu options
   PARAMS: "Params",
   AUTH: "Authorization",
-
+  
   // Body options
   NONE: "None",
   FORM_DATA: "Form Data",
@@ -20,7 +20,7 @@ const REQUEST = {
   ACCEPT: "Accept",
   ACCEPT_ENCODING: "Accept-Encoding",
   CONNECTION: "Connection",
-
+  
   // Header values
   GZIP: "gzip",
   DEFLATE: "deflate",
@@ -33,8 +33,8 @@ const REQUEST = {
   
   // Authorization types
   NO_AUTH: "No Auth",
-  BASIC_AUTH: "Basic Auth",
   BEARER_TOKEN: "Bearer Token",
+  BASIC_AUTH: "Basic Auth",
 };
 
 export default REQUEST;
