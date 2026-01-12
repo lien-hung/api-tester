@@ -6,12 +6,15 @@ import { OPTION, REQUEST } from "../../../constants/index";
 import useStore from "../../../store/useStore";
 
 const RequestMethod = () => {
+  const customMethods = useStore((state) => state.customMethods);
   const { requestMethod, handleRequestMethodChange } = useStore(
     useShallow((state) => ({
       requestMethod: state.requestMethod,
       handleRequestMethodChange: state.handleRequestMethodChange,
     }))
   );
+
+  const requestMethodOptions = [...OPTION.REQUEST_METHOD_OPTIONS, ...customMethods];
 
   return (
     <MethodSelectOptionWrapper
@@ -23,7 +26,7 @@ const RequestMethod = () => {
         {/* @ts-ignore */}
         <selectedcontent></selectedcontent>
       </button>
-      {OPTION.REQUEST_METHOD_OPTIONS.map((method, index) => (
+      {requestMethodOptions.map((method, index) => (
         <option key={REQUEST.METHOD + index} value={method}>
           <span id={method.toLowerCase()}>{method}</span>
         </option>
@@ -47,7 +50,8 @@ const MethodSelectOptionWrapper = styled.select`
   }
 
   option {
-    background: var(--vscode-input-background);
+    color: var(--vscode-foreground);
+    background-color: var(--vscode-input-background);
     padding: 0.25rem 0 0.25rem 0.5rem;
 
     &::checkmark {

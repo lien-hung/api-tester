@@ -61,7 +61,7 @@ function CodeEditor({
     if (event.data.type === COMMON.THEME_CHANGED) {
       setEditorTheme();
     }
-  }
+  };
 
   useEffect(() => {
     window.addEventListener("message", handleExtensionMessage);

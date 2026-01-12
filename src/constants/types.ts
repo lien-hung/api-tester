@@ -3,8 +3,8 @@ const TYPE = {
   HEADERS: "Headers",
   RESPONSE: "Response",
   
-  WEBVIEW_TYPE: "RestApiClient",
-  THEME_CHANGED: "Theme changed",
+  WEBVIEW_TYPE: "ApiTester",
+  THEME_CHANGED: "Theme Changed",
   TREEVIEW_DATA: "Selected Collection Data",
   
   BODY_RAW: "Raw",

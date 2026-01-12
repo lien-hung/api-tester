@@ -9,7 +9,9 @@ const COMMON = {
   FINISHED: "Finished",
   
   ALERT_COPY: "Alert Copy",
-  THEME_CHANGED: "Theme changed",
+  HAS_CONFIG: "Has Config",
+  INIT_CONFIG: "Init Config",
+  THEME_CHANGED: "Theme Changed",
 };
 
 export default COMMON;

@@ -66,10 +66,6 @@ export async function activate(context: vscode.ExtensionContext) {
 		}
 
 		setTimeout(() => {	
-			if (!currentPanel) {
-				return;
-			}
-
 			const requestHistory = stateManager.getState(COLLECTION.HISTORY_COLLECTION);
 			const selectedRequest = filterObjectKey(
 				requestHistory,
@@ -78,7 +74,7 @@ export async function activate(context: vscode.ExtensionContext) {
 			);
 	
 			if (selectedRequest) {
-				currentPanel.webview.postMessage({
+				currentPanel?.webview.postMessage({
 					type: TYPE.TREEVIEW_DATA,
 					...selectedRequest.requestObject,
 				});

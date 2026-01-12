@@ -81,3 +81,7 @@ export interface IRequestData {
   data: string | FormData | URLSearchParams;
   responseType: string;
 }
+
+export interface IExtensionConfig {
+  customMethods: string[];
+}

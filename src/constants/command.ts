@@ -7,7 +7,8 @@ const COMMAND = {
   ADD: "Add",
   DELETE: "Delete",
   ALERT_COPY: "Alert Copy",
-  STATE_ADDED: "State Added",
+  HAS_CONFIG: "Has Config",
+  INIT_CONFIG: "Init Config",
   
   ADD_TO_FAVORITES: "Add to favorites",
   REMOVE_FROM_FAVORITES: "Remove from favorites",

@@ -181,8 +181,12 @@ const Table = styled.table<{ readOnlyMode: boolean }>`
     opacity: ${(props) => props.readOnlyMode && "0.75"};
   }
 
-  .readOnlyRow input {
-    font-style: italic;
+  .readOnlyRow {
+    background-color: color-mix(in srgb, var(--vscode-editor-background) 90%, var(--vscode-foreground));
+
+    input {
+      font-style: italic;
+    }
   }
 
   .tableCheckbox, .tableDelete {

@@ -4,6 +4,7 @@ import { COLLECTION, COMMAND, MESSAGE, NAME, TYPE } from "./constants";
 import {
   generateResponseObject,
   getBody,
+  getExtensionConfig,
   getHeaders,
   getNonce,
   getUrl,
@@ -70,6 +71,18 @@ class MainWebviewPanel {
       ({ requestMethod, requestUrl, authOption, authData, bodyOption, bodyRawOption, bodyRawData, keyValueTableData, command }) => {
         if (command === COMMAND.ALERT_COPY) {
           vscode.window.showInformationMessage(MESSAGE.COPY_SUCCESFUL_MESSAGE);
+          return;
+        }
+
+        if (command === COMMAND.INIT_CONFIG) {
+          const configObject = {
+            type: COMMAND.HAS_CONFIG,
+            config: JSON.stringify(getExtensionConfig())
+          };
+
+          if (this.mainPanel) {
+            this.mainPanel.webview.postMessage(configObject);
+          }
           return;
         }
 

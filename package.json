@@ -105,6 +105,19 @@
           "group": "inline"
         }
       ]
+    },
+    "configuration": {
+      "title": "API Tester",
+      "properties": {
+        "api-tester.customMethods": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Custom HTTP methods (e.g. PROPFIND, REPORT). Must be in uppercase."
+        }
+      }
     }
   },
   "scripts": {

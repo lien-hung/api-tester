@@ -1,18 +1,3 @@
-export interface Headers {
-  [key: string]: string;
-}
-
-export interface RequestObject {
-  requestMethod: string;
-  requestUrl: string;
-  authOption: string;
-  authData: AuthData;
-  bodyOption: string;
-  bodyRawOption: string;
-  bodyRawData: BodyRawData;
-  keyValueTableData: KeyValueTableData[];
-}
-
 export interface AuthData {
   username: string;
   password: string;
@@ -123,4 +108,13 @@ export interface IKeyValueTableDataSlice {
   handleRequestKey: (id: string, detail: string) => void;
   handleRequestValue: (id: string, detail: string) => void;
   handleTreeViewTableData: (headers: KeyValueTableData[]) => void;
+}
+
+export interface ExtensionConfig {
+  customMethods: string[];
+}
+
+export interface IConfigSlice {
+  customMethods: string[];
+  setConfig: (config: ExtensionConfig) => void;
 }
