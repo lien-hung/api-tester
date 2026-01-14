@@ -19,7 +19,7 @@ const InputWrapperContainer = styled.div`
   }
 
   input {
-    border: 0.1rem solid rgba(255, 255, 255, 0.5);
+    border: 0.1rem solid var(--vscode-foreground);
     border-radius: 0.3rem;
     padding: 0.5rem 0.7rem;
     font-size: 1.2rem;

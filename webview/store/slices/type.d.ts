@@ -19,6 +19,7 @@ export interface KeyValueTableData {
   key: string;
   value: string;
   rowReadOnly: boolean;
+  authType?: string;
 }
 
 export interface IResizeBarSlice {
@@ -104,6 +105,8 @@ export interface IKeyValueTableDataSlice {
   deleteTableRow: (id: string) => void;
   addRequestBodyHeaders: (value: string) => void;
   removeRequestBodyHeaders: () => void;
+  addAuthTableRow: (authType: string, optionType: string, key?: string, value?: string) => void;
+  removeAuthTableRow: () => void;
   handleRequestCheckbox: (id: string) => void;
   handleRequestKey: (id: string, detail: string) => void;
   handleRequestValue: (id: string, detail: string) => void;

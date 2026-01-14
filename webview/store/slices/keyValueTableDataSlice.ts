@@ -123,6 +123,31 @@ const keyValueTableDataSlice: StateCreator<
     }));
   },
 
+  addAuthTableRow: (authType, optionType, key, value) => {
+    set((state) => ({
+      keyValueTableData: [
+        {
+          id: crypto.randomUUID(),
+          optionType: optionType,
+          isChecked: true,
+          key: key || "",
+          value: value || "",
+          rowReadOnly: true,
+          authType: authType,
+        },
+        ...state.keyValueTableData,
+      ],
+    }));
+  },
+
+  removeAuthTableRow: () => {
+    set((state) => ({
+      keyValueTableData: state.keyValueTableData.filter(
+        (keyValueData) => !keyValueData.authType
+      ),
+    }));
+  },
+
   addNewTableRow: (type) =>
     set((state) => ({
       keyValueTableData: [

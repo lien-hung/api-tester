@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { shallow, useShallow } from "zustand/shallow";
 
@@ -10,56 +10,59 @@ import getUrlParameters from "../../../utils/getUrlParameters";
 
 const RequestUrl = () => {
   const {
-    requestUrl,
-    requestOption,
     keyValueTableData,
     handleRequestUrlChange,
     handleTreeViewTableData,
   } = useStore(
     useShallow((state) => ({
-      requestUrl: state.requestUrl,
-      requestOption: state.requestOption,
       keyValueTableData: state.keyValueTableData,
       handleRequestUrlChange: state.handleRequestUrlChange,
       handleTreeViewTableData: state.handleTreeViewTableData,
     }))
   );
 
+  const [displayUrl, setDisplayUrl] = useState("");
   const prevTableData = usePrevious(keyValueTableData);
-  const prevRequestUrl = usePrevious(requestUrl);
+  const prevDisplayUrl = usePrevious(displayUrl);
 
   useEffect(() => {
     // Case 1: Table data changed
     if (prevTableData.length !== keyValueTableData.length
       || prevTableData.some((param, i) => !shallow(param, keyValueTableData[i]))
     ) {
-      if (requestOption !== REQUEST.PARAMS) return;
-
+      // Set new request URL
       const tableData = keyValueTableData.filter(
-        (d) => d.optionType === REQUEST.PARAMS && d.isChecked,
+        d => d.optionType === REQUEST.PARAMS && d.isChecked
       );
 
       const parameterString = generateParameterString(tableData);
-      const baseUrl = removeUrlParameter(requestUrl);
+      const baseUrl = removeUrlParameter(displayUrl);
       const newUrl = baseUrl + parameterString;
       handleRequestUrlChange(newUrl);
+
+      // Set display URL
+      const nonAuthData = tableData.filter(d => !d.authType);
+      const nonAuthParameterString = generateParameterString(nonAuthData);
+      const newDisplayUrl = baseUrl + nonAuthParameterString;
+      setDisplayUrl(newDisplayUrl);
     }
 
     // Case 2: Request URL changed
-    if (prevRequestUrl !== requestUrl) {
-      const urlParams = getUrlParameters(requestUrl);
+    if (prevDisplayUrl !== displayUrl) {
+      const urlParams = getUrlParameters(displayUrl);
       const urlParamsCount = urlParams.length;
-      const allParams = keyValueTableData.filter(d => d.optionType === REQUEST.PARAMS);
-      let newParams: KeyValueTableData[] = [];
+      const allParams = keyValueTableData.filter(d => d.optionType === REQUEST.PARAMS && !d.authType);
 
       // Map existing URL parameters to rows
-      allParams.forEach(p => {
-        if (p.isChecked && urlParams.length > 0) {
-          p.key = urlParams[0].key;
-          p.value = urlParams[0].value;
-          urlParams.splice(0, 1);
+      let newParams = allParams.map(p => {
+        if (!p.isChecked || urlParams.length === 0) {
+          return p;
         }
-        newParams.push(p);
+        const urlParam = urlParams.shift();
+        if (!urlParam) {
+          return p;
+        }
+        return { ...p, key: urlParam.key, value: urlParam.value };
       });
 
       if (urlParams.length > 0) {
@@ -82,15 +85,20 @@ const RequestUrl = () => {
       }
 
       const otherRows = keyValueTableData.filter(d => d.optionType !== REQUEST.PARAMS);
-      handleTreeViewTableData([...newParams, ...otherRows]);
+      const authParam = keyValueTableData.find(d => d.authType);
+      if (authParam) {
+        handleTreeViewTableData([authParam, ...newParams, ...otherRows]);
+      } else {
+        handleTreeViewTableData([...newParams, ...otherRows]);
+      }
     }
-  }, [keyValueTableData, requestUrl]);
+  }, [keyValueTableData, displayUrl]);
 
   return (
     <InputContainer
       placeholder="Enter request URL"
-      value={requestUrl}
-      onChange={(event) => handleRequestUrlChange(event.target.value)}
+      value={displayUrl}
+      onChange={(event) => setDisplayUrl(event.target.value)}
     />
   );
 };

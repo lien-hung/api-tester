@@ -23,19 +23,13 @@ const RequestBodyRawOptions = () => {
 
   const handleBodyRawSelectOption = (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedOptionIndex = event.target.selectedIndex;
-    const selectedOptionElement = event.target.childNodes[
-      selectedOptionIndex
-    ] as HTMLSelectElement;
+    const selectedOptionElement = event.target.childNodes[selectedOptionIndex] as HTMLSelectElement;
 
     handleBodyRawOption(event.target.value);
+    removeRequestBodyHeaders();
 
-    if (event.target.value === REQUEST.NONE) {
-      removeRequestBodyHeaders();
-    } else {
-      removeRequestBodyHeaders();
-      addRequestBodyHeaders(
-        selectedOptionElement.getAttribute("header-type") || "",
-      );
+    if (event.target.value !== REQUEST.NONE) {
+      addRequestBodyHeaders(selectedOptionElement.getAttribute("header-type") || "");
     }
   };
 

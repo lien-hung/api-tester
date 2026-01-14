@@ -46,13 +46,13 @@ const KeyValueTable = ({
           <tbody>
             {filteredData.map(
               (
-                { id, isChecked, key, value, rowReadOnly }: any,
+                { id, isChecked, key, value, rowReadOnly, authType }: any,
                 index: number,
               ) => (
                 <React.Fragment key={id}>
                   <tr className={rowReadOnly && "readOnlyRow"}>
                     {!tableReadOnly && (
-                      <th className="tableCheckbox">
+                      <th className={`tableCheckbox ${authType && "authRow"}`}>
                         {index !== filteredData.length - 1 && (
                           <input
                             type="checkbox"
@@ -61,6 +61,7 @@ const KeyValueTable = ({
                               handleRequestCheckbox &&
                               handleRequestCheckbox(id)
                             }
+                            disabled={authType}
                           />
                         )}
                       </th>
@@ -194,9 +195,16 @@ const Table = styled.table<{ readOnlyMode: boolean }>`
     text-align: center;
     padding: 0 0.15rem 0 0.2rem;
   }
-
+  
   .tableDelete {
     border-left: hidden;
+  }
+  
+  .authRow input {
+    &:checked:before {
+      border-bottom-color: rgba(128, 128, 128, 0.7);
+      border-right-color: rgba(128, 128, 128, 0.7);
+    }
   }
 `;
 

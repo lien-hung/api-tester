@@ -1,5 +1,6 @@
 const OPTION = {
-  AUTHORIZATION_OPTIONS: ["No Auth", "Bearer Token", "Basic Auth"],
+  AUTHORIZATION_OPTIONS: ["No Auth", "API Key", "Bearer Token", "Basic Auth"],
+  ADD_TO_OPTIONS: ["Headers", "Query Params"],
   REQUEST_METHOD_OPTIONS: ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"],
   REQUEST_MENU_OPTIONS: [
     "Params",

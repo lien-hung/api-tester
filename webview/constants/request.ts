@@ -3,10 +3,15 @@ const REQUEST = {
   METHOD: "Method",
   REQUEST: "Request",
   URL_REQUEST: "Url Request",
+
+  // Add to...
+  ADD_TO_QUERY_PARAMS: "Query Params",
+  ADD_TO_HEADERS: "Headers",
   
   // Menu options
   PARAMS: "Params",
   AUTH: "Authorization",
+  ADD_TO_OPTION: "Add To Option",
   
   // Body options
   NONE: "None",
@@ -27,12 +32,15 @@ const REQUEST = {
   NO_CACHE: "no-cache",
   ANY_MIME_TYPE: "*/*",
   TOKEN: "token",
+  KEEP_ALIVE: "keep-alive",
+
+  // Auth properties
   USERNAME: "username",
   PASSWORD: "password",
-  KEEP_ALIVE: "keep-alive",
   
   // Authorization types
   NO_AUTH: "No Auth",
+  API_KEY: "API Key",
   BEARER_TOKEN: "Bearer Token",
   BASIC_AUTH: "Basic Auth",
 };

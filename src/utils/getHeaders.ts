@@ -27,9 +27,7 @@ function getHeaders(
   }
 
   if (authOption === TYPE.BASIC_AUTH) {
-    headersObject[TYPE.AUTHORIZATION] = `Basic ${Buffer.from(
-      username + ":" + password,
-    ).toString("base64")}`;
+    headersObject[TYPE.AUTHORIZATION] = `Basic ${Buffer.from(`${username}:${password}`).toString("base64")}`;
   }
 
   if (authOption === TYPE.BEARER_TOKEN) {

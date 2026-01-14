@@ -1,26 +1,42 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import styled from "styled-components";
 import { useShallow } from "zustand/shallow";
 
 import SelectWrapper from "../../../components/SelectWrapper";
-import { OPTION, REQUEST } from "../../../constants/index";
+import { OPTION, REQUEST, COMMON } from "../../../constants/index";
 import useStore from "../../../store/useStore";
 import RequestAuthMenuOption from "./RequestAuthSelectMenuOption";
 
 const RequestAuthSelectMenu = () => {
-  const { authOption, handleRequestAuthType } = useStore(
+  const {
+    authOption,
+    handleRequestAuthType,
+    addAuthTableRow,
+    removeAuthTableRow,
+  } = useStore(
     useShallow((state) => ({
       authOption: state.authOption,
       handleRequestAuthType: state.handleRequestAuthType,
+      addAuthTableRow: state.addAuthTableRow,
+      removeAuthTableRow: state.removeAuthTableRow,
     }))
   );
+
+  const handleAuthOptionChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    handleRequestAuthType(event.target.value);
+
+    removeAuthTableRow();
+    if (event.target.value === REQUEST.API_KEY) {
+      addAuthTableRow(REQUEST.API_KEY, COMMON.HEADERS);
+    }
+  };
 
   return (
     <>
       <SelectWrapper requestMenu primary={false} secondary={false}>
         <h3>Type: </h3>
         <OptionWrapper
-          onChange={(event) => handleRequestAuthType(event.target.value)}
+          onChange={handleAuthOptionChange}
           value={authOption}
         >
           {OPTION.AUTHORIZATION_OPTIONS.map((option, index) => (
