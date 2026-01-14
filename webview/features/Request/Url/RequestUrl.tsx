@@ -59,10 +59,7 @@ const RequestUrl = () => {
           return p;
         }
         const urlParam = urlParams.shift();
-        if (!urlParam) {
-          return p;
-        }
-        return { ...p, key: urlParam.key, value: urlParam.value };
+        return urlParam ? { ...p, key: urlParam.key, value: urlParam.value } : p;
       });
 
       if (urlParams.length > 0) {
