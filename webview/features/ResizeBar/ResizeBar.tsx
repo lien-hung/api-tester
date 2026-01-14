@@ -16,6 +16,9 @@ const ResizeBar = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [resizeBarX, setResizeBarX] = useState(0);
 
+  const editorElement = document.querySelector(".editor-container") || document.documentElement;
+  const editorDimensions = editorElement.getBoundingClientRect();
+
   const handleMouseDown = (event: React.MouseEvent) => {
     event.preventDefault();
 
@@ -32,8 +35,8 @@ const ResizeBar = () => {
     event.preventDefault();
 
     if (isDragging && resizeBarX) {
-      const currentWidth = Number(requestMenuWidth.replace("vw", ""));
-      const newWidth = currentWidth + (event.clientX - resizeBarX) / 10;
+      const currentWidth = Number(requestMenuWidth.replace("%", ""));
+      const newWidth = currentWidth + ((event.clientX - resizeBarX) / editorDimensions.width) * 100;
 
       if (
         newWidth >= WIDTH.MINIMUM_WIDTH &&
@@ -41,8 +44,6 @@ const ResizeBar = () => {
       ) {
         setResizeBarX(newWidth);
         handleRequestWidthChange(newWidth);
-      } else {
-        setIsDragging(false);
       }
     }
   };
@@ -65,7 +66,7 @@ const ResizeBar = () => {
 };
 
 const ResizeBarHitBox = styled.div`
-  width: 1.5px;
+  width: 1px;
   height: 100vh;
   background: rgba(128, 128, 128, 0.7);
   display: inline-block;
@@ -74,7 +75,7 @@ const ResizeBarHitBox = styled.div`
   cursor: ew-resize;
 
   &:hover {
-    width: 2px;
+    width: 3px;
   }
 `;
 

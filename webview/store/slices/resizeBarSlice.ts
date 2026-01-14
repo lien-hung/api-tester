@@ -12,7 +12,7 @@ const resizebarSlice: StateCreator<
   requestMenuWidth: WIDTH.INITIAL_WIDTH,
 
   handleRequestWidthChange: (value: number) =>
-    set(() => ({ requestMenuWidth: `${value}vw` })),
+    set(() => ({ requestMenuWidth: `${value}%` })),
 });
 
 export default resizebarSlice;
