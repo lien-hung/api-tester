@@ -137,17 +137,16 @@ const TableContainerWrapper = styled.div`
   margin: 1.3rem;
   flex: 1 1 auto;
   overflow-y: scroll;
+  scrollbar-width: none;
 `;
 
 const TableContainer = styled.div`
   width: 100%;
   display: flex;
-  align-items: center;
   flex-direction: column;
-  padding-right: 1rem;
 
   h2 {
-    margin: 1.3rem 0;
+    margin-bottom: 1.3rem;
     opacity: 0.9;
   }
 `;

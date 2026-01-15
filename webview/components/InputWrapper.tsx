@@ -15,7 +15,7 @@ const InputWrapperContainer = styled.div`
     margin-right: 1rem;
     font-size: 1.2rem;
     opacity: 0.95;
-    flex: 1 0 6rem;
+    flex: 0 0 6rem;
   }
 
   input {
@@ -26,7 +26,6 @@ const InputWrapperContainer = styled.div`
     color: var(--default-text);
     background-color: transparent;
     opacity: 0.45;
-    width: 18rem;
   }
 `;
 

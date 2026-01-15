@@ -31,7 +31,7 @@ const RequestMenuOption = () => {
           type={requestOption}
           {...keyValueProps}
           tableReadOnly={false}
-          title=""
+          title={requestOption}
         />
       );
     case REQUEST.AUTH:

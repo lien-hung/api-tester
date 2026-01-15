@@ -80,7 +80,7 @@ const RequestAuthApiKey = () => {
 };
 
 const OptionWrapper = styled.select`
-  width: 18rem;
+  width: auto;
   height: 2.7rem;
   border: 0.1rem solid var(--vscode-foreground);
   border-radius: 0.3rem;
