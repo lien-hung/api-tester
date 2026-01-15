@@ -18,13 +18,14 @@ The VSIX file can be downloaded from the [Releases](https://github.com/lien-hung
 This extension acts as a UI-based HTTP client to send requests to your desired endpoint. Most helpful for testing and verifying that your API is working properly.
 
 - Supported HTTP methods: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `HEAD`, `OPTIONS`
+  - **NEW**: Custom methods can be configured in settings
 - Request options:
   - Use parameters
-  - Authorization: `Basic`, `Bearer Auth`
+  - Authorization: `API Key` (**NEW**), `Bearer Token`, `Basic Auth`
   - Request body:
     - Form Data
     - `x-www-form-urlencoded`
-    - Raw: Text, JavaScript, JSON, HTML, XML **(NEW)**
+    - Raw: Text, JavaScript, JSON, HTML, XML
 - Code snippets for your current request
 - Multiple response preview options and basic metadata
 - Tree view of your request history data
