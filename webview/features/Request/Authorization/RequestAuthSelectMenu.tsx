@@ -55,7 +55,7 @@ const OptionWrapper = styled.select`
   width: 11rem;
   height: 2.3rem;
   margin-left: 1rem;
-  padding-left: 1rem;
+  padding-left: 0.5rem;
   border: 0.1rem solid var(--vscode-foreground);
   border-radius: 0.25rem;
   font-size: 1.1rem;

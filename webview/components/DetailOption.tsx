@@ -10,15 +10,16 @@ const DetailOption = ({ children, requestMenu }: IDetailOptionProps) => {
 
 const DetailOptionWrapper = styled.div<{ purpose?: boolean }>`
   display: flex;
-  align-items: center;
-  margin: ${(props) =>
-    props.purpose ? "1.5rem 3rem 1.5rem 0" : "0 0 1.5rem 0"};
+  justify-content: ${(props) => props.purpose ? "" : "space-between"};
+  margin: 0;
+  padding-left: ${(props) => props.purpose ? "1.3rem" : "0"};
   flex: 0 1 auto;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.7);
   
   p {
-    padding-bottom: 0.35rem;
+    padding-bottom: 0.65rem;
     color: rgb(66 245 66);
-    transform: translateX(-1.7rem);
+    transform: translateX(-1.8rem);
     user-select: none;
   }
 `;

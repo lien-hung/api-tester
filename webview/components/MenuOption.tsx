@@ -18,12 +18,14 @@ const MenuOptionWrapper = styled.div<{ primary: boolean }>`
   display: flex;
   align-items: center;
   margin-right: 2rem;
-  padding-bottom: 0.35rem;
+  padding: ${(props) =>
+    props.primary ? "0 0.2rem 0.4rem 0.2rem" : "0 0.2rem 0.6rem 0.2rem"};
   border-bottom: ${(props) =>
-    props.primary ? "0.15rem solid var(--vscode-foreground)" : "none"};
+    props.primary ? "0.2rem solid var(--vscode-button-background)" : "none"};
   opacity: ${(props) => (props.primary ? "1" : "0.45")};
 
   h3 {
+    font-size: 1.15rem;
     font-weight: 400;
     cursor: pointer;
   }

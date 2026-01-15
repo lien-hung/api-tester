@@ -65,17 +65,17 @@ const RequestPanelWrapper = styled.div`
   display: flex;
   flex: 1 1 auto;
   flex-flow: column;
-  margin: 2rem 1rem;
   overflow: hidden;
   vertical-align: top;
   height: auto;
-  max-height: calc(100vh - 4rem);
+  max-height: 100vh;
   box-sizing: border-box;
 `;
 
 const RequestMainForm = styled.form`
   display: flex;
   flex: 0 1 auto;
+  margin: 1.3rem;
 `;
 
 export default RequestPanel;

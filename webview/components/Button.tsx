@@ -26,7 +26,7 @@ const Button = ({
 
 const ButtonWrapper = styled.button<IButtonStyledProps>`
   width: 8rem;
-  margin-left: ${(props) => (props.primary ? "0" : "2.7rem")};
+  margin-left: ${(props) => (props.primary ? "0" : "2rem")};
   font-size: ${(props) => (props.primary ? "1.2rem" : "1rem")};
   font-weight: ${(props) => (props.primary ? "500" : "normal")};
   transition: background-color 0.2s ease-in-out;

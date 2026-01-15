@@ -23,7 +23,7 @@ const ResponseBodyViewOption = () => {
   return (
     <>
       {responseBodyOption === "Pretty" && (
-        <SelectWrapper requestMenu={false} primary={false} secondary={false}>
+        <SelectWrapper primary requestMenu={false} secondary={false}>
           <SelectOptionWrapper
             onChange={(event) =>
               handleResponseBodyViewFormatChange(event.target.value)

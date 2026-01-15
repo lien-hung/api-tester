@@ -10,7 +10,6 @@ const requestDataSlice: StateCreator<
 > = (set) => ({
   requestUrl: "",
   codeSnippetValue: "",
-  requestUrlParams: "",
   bodyRawOption: "Text",
   bodyOption: REQUEST.NONE,
   requestMethod: REQUEST.GET,
@@ -29,9 +28,6 @@ const requestDataSlice: StateCreator<
 
   handleRequestMethodChange: (method: string) =>
     set(() => ({ requestMethod: method })),
-
-  handleRequestParamsChange: (params: string) =>
-    set(() => ({ requestUrlParams: params })),
 
   handleRequestOptionChange: (option: string) =>
     set(() => ({ requestOption: option })),

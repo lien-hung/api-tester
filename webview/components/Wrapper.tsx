@@ -10,8 +10,7 @@ const ComponentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 3.5rem;
-  height: 35vh;
+  margin: 2rem 1.3rem 0 1.3rem;
 `;
 
 export default Wrapper;

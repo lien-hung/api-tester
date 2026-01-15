@@ -39,7 +39,8 @@ const ResponseMetaData = ({
 
 const ResponseMetaDataContainer = styled.div`
   display: flex;
-  margin: 0 0 0 auto;
+  align-items: flex-end;
+  margin: 0 1.4rem 0.35rem 0;
 `;
 
 const MetaDataContainer = styled.div<{ secondary: boolean }>`

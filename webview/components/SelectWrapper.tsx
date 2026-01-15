@@ -25,13 +25,10 @@ const SelectWrapperContainer = styled.div<ISelectWrapperStyledProps>`
   align-items: center;
   justify-content: ${(props) => props.secondary && "space-around"};
   width: ${(props) => props.secondary && "100%"};
-  margin-left: ${(props) => props.primary && "auto"};
-  padding-bottom: ${(props) => (props.border ? "0.8rem" : "")};
-  border-bottom: ${(props) =>
-    props.border ? "0.08rem solid rgba(255, 255, 255, 0.3)" : ""};
+  margin: ${(props) => props.primary ? "0 0 0 1rem" : "1.3rem 1.3rem 0 1.3rem"};
 
   h3 {
-    opacity: 0.93;
+    font-size: 1.2rem;
   }
 
   .variantsLabel {

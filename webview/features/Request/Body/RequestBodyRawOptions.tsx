@@ -56,9 +56,8 @@ const RequestBodyRawOptions = () => {
 };
 
 const SelectOptionWrapper = styled.select`
-  width: 8.3rem;
+  width: 6.9rem;
   height: 2.3rem;
-  margin-left: 1rem;
   padding-left: 0.7rem;
   border: 0.1rem solid var(--vscode-foreground);
   border-radius: 0.25rem;

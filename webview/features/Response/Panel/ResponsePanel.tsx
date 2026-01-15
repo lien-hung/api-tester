@@ -44,6 +44,7 @@ const ResponsePanel = () => {
         requestMethod,
         bodyOption,
         bodyRawOption,
+        bodyRawData,
       } = event.data;
 
       handleTreeViewClick({
@@ -53,6 +54,7 @@ const ResponsePanel = () => {
         requestMethod,
         bodyOption,
         bodyRawOption,
+        bodyRawData,
       });
 
       handleTreeViewTableData(keyValueTableData);
@@ -95,11 +97,10 @@ const ResponsePanelWrapper = styled.div`
   display: flex;
   flex: 1 1 auto;
   flex-flow: column;
-  margin: 2rem 1rem;
   overflow: hidden;
   vertical-align: top;
   height: auto;
-  max-height: calc(100vh - 4rem);
+  max-height: 100vh;
   box-sizing: border-box;
 `;
 

@@ -60,7 +60,6 @@ export interface IResponseDataHeader {
 
 export interface IRequestDataSlice extends ITreeViewResponse {
   codeSnippetValue: string;
-  requestUrlParams: string;
   shouldBeautifyEditor: boolean;
   requestOption: string;
   codeSnippetOption: {
@@ -73,7 +72,6 @@ export interface IRequestDataSlice extends ITreeViewResponse {
   handleRequestMethodChange: (method: string) => void;
   handleRequestAuthType: (authOption: string) => void;
   handleRequestAuthData: (authType: string, data: string) => void;
-  handleRequestParamsChange: (params: string) => void;
   handleRequestOptionChange: (option: string) => void;
   handleRequestAuthType: (type: string) => void;
   handleRequestBodyOption: (type: string) => void;
@@ -97,6 +95,7 @@ export interface ITreeViewResponse {
   requestMethod: string;
   bodyOption: string;
   bodyRawOption: string;
+  bodyRawData: BodyRawData;
 }
 
 export interface IKeyValueTableDataSlice {
