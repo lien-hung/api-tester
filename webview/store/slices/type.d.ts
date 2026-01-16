@@ -49,7 +49,6 @@ export interface IResponseData {
   statusText: string;
   requestTime: number;
   responseSize: number;
-  type?: string;
   message?: string;
 }
 

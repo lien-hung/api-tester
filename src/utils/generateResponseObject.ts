@@ -29,20 +29,21 @@ async function generateResponseObject(
     response.headers.forEach((value, key) => {
       headersArray.push({ key: key, value: value });
     });
-    const headersSize = headersArray.length;
     const responseBody = await response.text();
+    
+    const responseBodySize = Buffer.from(responseBody).length;
+    const headersSize = Buffer.from(JSON.stringify(headersArray)).length;
 
-    const responseDataObject: any = {
+    const responseDataObject = {
+      type: TYPE.RESPONSE,
       data: responseBody,
       headers: headersArray,
+      headersLength: headersArray.length,
       statusCode: response.status,
       statusText: response.statusText,
+      requestTime: totalRequestTime,
+      responseSize: responseBodySize + headersSize,
     };
-
-    responseDataObject.responseSize = Buffer.from(JSON.stringify(responseDataObject)).length;
-    responseDataObject.type = TYPE.RESPONSE;
-    responseDataObject.headersLength = headersSize;
-    responseDataObject.requestTime = totalRequestTime;
 
     return responseDataObject;
   } catch (error: any) {
