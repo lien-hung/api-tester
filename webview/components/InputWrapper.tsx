@@ -19,13 +19,16 @@ const InputWrapperContainer = styled.div`
   }
 
   input {
-    border: 0.1rem solid var(--vscode-foreground);
+    border: 0.1rem solid rgba(128, 128, 128, 0.7);
     border-radius: 0.3rem;
     padding: 0.5rem 0.7rem;
     font-size: 1.2rem;
     color: var(--default-text);
     background-color: transparent;
-    opacity: 0.45;
+    
+    &::placeholder {
+      opacity: 0.7;
+    }
   }
 `;
 
