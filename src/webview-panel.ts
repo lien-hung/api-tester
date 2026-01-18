@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 
-import { COLLECTION, COMMAND, MESSAGE, NAME, TYPE } from "./constants";
+import { COMMAND, MESSAGE, NAME, TYPE } from "./constants";
 import {
   generateResponseObject,
   getBody,
@@ -10,8 +10,8 @@ import {
   getUrl,
 } from "./utils";
 import { IRequestHeaderInformation, IRequestObjectType } from "./utils/type";
-import ExtensionStateManager from "./state-manager";
 import RequestHistoryProvider from "./request-history";
+import CollectionsProvider from "./collections";
 
 class MainWebviewPanel {
   private url: string = "";
@@ -19,24 +19,29 @@ class MainWebviewPanel {
   private method: string = "";
   private headers: IRequestHeaderInformation = { key: "" };
   public mainPanel: vscode.WebviewPanel | null = null;
+  private collectionName: string | undefined;
+  private requestName: string | undefined;
   private extensionUri;
-  public stateManager;
   private requestHistoryProvider;
+  private collectionsProvider;
 
   constructor(
     extensionUri: vscode.Uri,
-    stateManager: ExtensionStateManager,
-    requestHistoryProvider: RequestHistoryProvider
+    requestHistoryProvider: RequestHistoryProvider,
+    collectionsProvider: CollectionsProvider,
   ) {
     this.extensionUri = extensionUri;
-    this.stateManager = stateManager;
     this.requestHistoryProvider = requestHistoryProvider;
+    this.collectionsProvider = collectionsProvider;
   }
 
-  initializeWebview() {
+  initializeWebview(collectionName?: string, requestName?: string) {
+    this.collectionName = collectionName;
+    this.requestName = requestName;
+
     this.mainPanel = vscode.window.createWebviewPanel(
       TYPE.WEBVIEW_TYPE,
-      NAME.MAIN_PANEL_NAME,
+      requestName || NAME.MAIN_PANEL_NAME,
       vscode.ViewColumn.One,
       {
         enableScripts: true,
@@ -106,7 +111,7 @@ class MainWebviewPanel {
         this.url = getUrl(requestUrl);
         this.method = requestMethod;
         this.headers = getHeaders(keyValueTableData, authOption, authData);
-        
+
         // @ts-expect-error
         this.body = getBody(
           keyValueTableData,
@@ -121,9 +126,6 @@ class MainWebviewPanel {
   }
 
   private async postWebviewMessage(requestObject: IRequestObjectType) {
-    const { userRequestHistory } = this.stateManager.getState(
-      COLLECTION.HISTORY_COLLECTION
-    );
     const requestData = {
       url: this.url,
       method: this.method,
@@ -131,53 +133,31 @@ class MainWebviewPanel {
       data: this.body,
       responseType: TYPE.TEXT
     };
-    
+
     const responseObject = await generateResponseObject(requestData);
     const requestedTime = new Date().getTime();
 
     if (responseObject && responseObject.type !== MESSAGE.ERROR) {
-      if (!userRequestHistory) {
-        await this.stateManager.addState(
-          COLLECTION.HISTORY_COLLECTION,
-          {
-            history: [
-              {
-                ...requestData,
-                requestedTime,
-                favoritedTime: null,
-                isUserFavorite: false,
-                id: crypto.randomUUID(),
-                requestObject,
-              },
-            ],
-          },
-        );
-      } else {
-        if (!userRequestHistory) {
-          return;
-        }
-
-        await this.stateManager.addState(
-          COLLECTION.HISTORY_COLLECTION,
-          {
-            history: [
-              {
-                ...requestData,
-                requestedTime,
-                favoritedTime: null,
-                isUserFavorite: false,
-                id: crypto.randomUUID(),
-                requestObject,
-              },
-              ...userRequestHistory,
-            ],
-          },
-        );
-      }
-
       if (this.mainPanel) {
         this.mainPanel.webview.postMessage(responseObject);
-        this.requestHistoryProvider.refresh();
+
+        if (this.collectionName && this.requestName) {
+          this.collectionsProvider.add(this.collectionName, {
+            ...requestData,
+            requestedTime,
+            id: crypto.randomUUID(),
+            name: this.requestName,
+            requestObject,
+          });
+        } else {
+          this.requestHistoryProvider.add({
+            ...requestData,
+            requestedTime,
+            id: crypto.randomUUID(),
+            name: "",
+            requestObject,
+          });
+        }
       }
     }
   }
@@ -221,7 +201,8 @@ class MainWebviewPanel {
           </script>
           <script src="${scriptSrc}" nonce="${nonce}"></script>
         </body>
-      </html>`;
+      </html>
+    `;
   }
 }
 

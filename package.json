@@ -25,34 +25,88 @@
       {
         "title": "New Request",
         "command": "api-tester.newRequest",
-        "category": "Requests",
+        "category": "General",
         "icon": {
           "light": "icons/svg/add-light.svg",
           "dark": "icons/svg/add-dark.svg"
         }
       },
       {
+        "title": "Open Request",
+        "shortTitle": "Open",
+        "command": "api-tester.openRequest",
+        "category": "General"
+      },
+      {
         "title": "Delete Request",
+        "shortTitle": "Delete",
         "command": "api-tester.deleteRequest",
-        "category": "Requests",
+        "category": "General",
         "icon": {
           "light": "icons/svg/delete-light.svg",
           "dark": "icons/svg/delete-dark.svg"
         }
       },
       {
-        "title": "Clear History",
-        "command": "api-tester.clearHistory",
-        "category": "Requests",
+        "title": "Refresh",
+        "command": "api-tester.refresh",
+        "category": "General",
         "icon": {
-          "light": "icons/svg/clear-history-light.svg",
-          "dark": "icons/svg/clear-history-dark.svg"
+          "light": "icons/svg/refresh-light.svg",
+          "dark": "icons/svg/refresh-dark.svg"
         }
       },
       {
-        "title": "Open From History",
-        "command": "api-tester.openFromHistory",
-        "category": "Requests"
+        "title": "Clear History",
+        "command": "api-tester.clearHistory",
+        "category": "Request History",
+        "icon": {
+          "light": "icons/svg/delete-light.svg",
+          "dark": "icons/svg/delete-dark.svg"
+        }
+      },
+      {
+        "title": "New Collection",
+        "command": "api-tester.newCollection",
+        "category": "Collection",
+        "icon": {
+          "light": "icons/svg/new-collection-light.svg",
+          "dark": "icons/svg/new-collection-dark.svg"
+        }
+      },
+      {
+        "title": "Rename",
+        "command": "api-tester.renameCollection",
+        "category": "Collection"
+      },
+      {
+        "title": "Delete",
+        "command": "api-tester.deleteCollection",
+        "category": "Collection"
+      },
+      {
+        "title": "New Request",
+        "command": "api-tester.newRequestInCollection",
+        "category": "Collection",
+        "icon": {
+          "light": "icons/svg/add-light.svg",
+          "dark": "icons/svg/add-dark.svg"
+        }
+      },
+      {
+        "title": "Clear Items",
+        "command": "api-tester.clearItemsInCollection",
+        "category": "Collection"
+      },
+      {
+        "title": "Rename",
+        "command": "api-tester.renameRequest",
+        "category": "Collection Request"
+      },
+      {
+        "title": "Delete",
+        "command": "api-tester.deleteRequestInCollection",
+        "category": "Collection Request"
       }
     ],
     "views": {
@@ -61,6 +115,11 @@
           "id": "apiTesterRequestHistoryTreeView",
           "name": "Request History",
           "icon": "icons/svg/request-history-view.svg"
+        },
+        {
+          "id": "apiTesterCollectionsTreeView",
+          "name": "Collections",
+          "icon": "icons/svg/collections-view.svg"
         }
       ]
     },
@@ -77,16 +136,18 @@
       {
         "view": "apiTesterRequestHistoryTreeView",
         "contents": "Your history collection seems to be empty.\nTo start sending HTTP requests, click the button below.\n[Add Request](command:api-tester.newRequest)"
+      },
+      {
+        "view": "apiTesterCollectionsTreeView",
+        "contents": "No collections available yet.\n[New Collection](command:api-tester.newCollection)"
       }
     ],
     "menus": {
-      "commandPalette": [
-        {
-          "command": "api-tester.newRequest",
-          "when": "false"
-        }
-      ],
       "view/title": [
+        {
+          "command": "api-tester.refresh",
+          "group": "navigation"
+        },
         {
           "command": "api-tester.newRequest",
           "when": "view == apiTesterRequestHistoryTreeView",
@@ -96,6 +157,11 @@
           "command": "api-tester.clearHistory",
           "when": "view == apiTesterRequestHistoryTreeView",
           "group": "navigation@2"
+        },
+        {
+          "command": "api-tester.newCollection",
+          "when": "view == apiTesterCollectionsTreeView",
+          "group": "navigation@1"
         }
       ],
       "view/item/context": [
@@ -103,6 +169,41 @@
           "command": "api-tester.deleteRequest",
           "when": "view == apiTesterRequestHistoryTreeView && viewItem == userRequestHistory.item",
           "group": "inline"
+        },
+        {
+          "command": "api-tester.newRequestInCollection",
+          "when": "view == apiTesterCollectionsTreeView && viewItem == userCollection.collection",
+          "group": "inline"
+        },
+        {
+          "command": "api-tester.newRequestInCollection",
+          "when": "view == apiTesterCollectionsTreeView && viewItem == userCollection.collection",
+          "group": "a"
+        },
+        {
+          "command": "api-tester.renameCollection",
+          "when": "view == apiTesterCollectionsTreeView && viewItem == userCollection.collection",
+          "group": "b@1"
+        },
+        {
+          "command": "api-tester.deleteCollection",
+          "when": "view == apiTesterCollectionsTreeView && viewItem == userCollection.collection",
+          "group": "b@2"
+        },
+        {
+          "command": "api-tester.clearItemsInCollection",
+          "when": "view == apiTesterCollectionsTreeView && viewItem == userCollection.collection",
+          "group": "b@3"
+        },
+        {
+          "command": "api-tester.renameRequest",
+          "when": "view == apiTesterCollectionsTreeView && viewItem == userCollection.item",
+          "group": "a@1"
+        },
+        {
+          "command": "api-tester.deleteRequestInCollection",
+          "when": "view == apiTesterCollectionsTreeView && viewItem == userCollection.item",
+          "group": "a@2"
         }
       ]
     },

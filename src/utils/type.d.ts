@@ -4,9 +4,8 @@ export interface IRequestTreeItemState {
   headers: Headers;
   responseType: string;
   requestedTime: number;
-  favoritedTime: number | null;
-  isUserFavorite: boolean;
   id: string;
+  name: string;
   requestObject: RequestObject;
 }
 

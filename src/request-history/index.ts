@@ -1,45 +1,76 @@
-import { EventEmitter, TreeDataProvider } from "vscode";
+import fs from "fs";
+import { EventEmitter, ExtensionContext, TreeDataProvider } from "vscode";
+
+import { getHomePath, getMethodIcons } from "../../src/utils";
+import { IRequestTreeItemState } from "../utils/type";
 import { RequestHistoryTreeItem } from "./tree-items";
-import { getMethodIcons } from "../../src/utils";
-import ExtensionStateManager from "../state-manager";
-import { COLLECTION } from "../constants";
 
 export default class RequestHistoryProvider implements TreeDataProvider<RequestHistoryTreeItem> {
-  private stateManager: ExtensionStateManager;
+  private extensionContext: ExtensionContext;
   private _onDidChangeTreeData: EventEmitter<RequestHistoryTreeItem | undefined> = new EventEmitter();
   public readonly onDidChangeTreeData = this._onDidChangeTreeData.event;
+  private tree: RequestHistoryTreeItem[] = [];
 
   public getTreeItem(element: RequestHistoryTreeItem): RequestHistoryTreeItem {
-    element.iconPath = getMethodIcons(this.stateManager.getExtensionContext(), element.request.method);
+    element.iconPath = getMethodIcons(this.extensionContext, element.request.method);
     return element;
   }
 
-  public getChildren(element?: RequestHistoryTreeItem): RequestHistoryTreeItem[] {
-    if (!element) {
-      const { userRequestHistory } = this.stateManager.getState(COLLECTION.HISTORY_COLLECTION);
-      if (!userRequestHistory || userRequestHistory.length === 0) {
-        return [];
-      }
-      return userRequestHistory.map((stateItem) => new RequestHistoryTreeItem(stateItem));
-    }
-    return [];
+  public getChildren(): RequestHistoryTreeItem[] {
+    return this.tree;
+  }
+
+  public getItemById(id: string) {
+    return this.tree.find(item => item.id === id);
   }
 
   public refresh(item?: RequestHistoryTreeItem) {
     this._onDidChangeTreeData.fire(item);
   }
 
-  public async delete(item: RequestHistoryTreeItem) {
-    await this.stateManager.deleteState(COLLECTION.HISTORY_COLLECTION, item.id);
+  public add(state: IRequestTreeItemState) {
+    const treeItem = new RequestHistoryTreeItem(state);
+    this.tree.unshift(treeItem);
     this.refresh();
+    this.save();
   }
 
-  public async clear() {
-    await this.stateManager.deleteState(COLLECTION.HISTORY_COLLECTION);
+  public delete(item: RequestHistoryTreeItem) {
+    this.tree = this.tree.filter(i => i.id !== item.id);
     this.refresh();
+    this.save();
+  }
+
+  public clear() {
+    this.tree = [];
+    this.refresh();
+    this.save();
+  }
+
+  private get filePath() {
+    return getHomePath("request-history.json");
+  }
+
+  private readFile() {
+    try {
+      if (!fs.existsSync(this.filePath)) {
+        fs.writeFileSync(this.filePath, "[]");
+      }
+      const dataStr = fs.readFileSync(this.filePath).toString("utf8");
+      const data = JSON.parse(dataStr) as IRequestTreeItemState[];
+      this.tree = data.map((state) => new RequestHistoryTreeItem(state));
+    } catch (error) {
+      console.error("Error loading request history: ", error);
+    }
+  }
+
+  private save() {
+    const data = this.tree.map((item) => item.request);
+    fs.writeFileSync(this.filePath, JSON.stringify(data));
   }
   
-  constructor(stateManager: ExtensionStateManager) {
-    this.stateManager = stateManager;
+  constructor(context: ExtensionContext) {
+    this.extensionContext = context;
+    this.readFile();
   }
 }
