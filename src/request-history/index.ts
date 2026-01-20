@@ -56,7 +56,7 @@ export default class RequestHistoryProvider implements TreeDataProvider<RequestH
       if (!fs.existsSync(this.filePath)) {
         fs.writeFileSync(this.filePath, "[]");
       }
-      const dataStr = fs.readFileSync(this.filePath).toString("utf8");
+      const dataStr = fs.readFileSync(this.filePath, { encoding: "utf8" });
       const data = JSON.parse(dataStr) as IRequestTreeItemState[];
       this.tree = data.map((state) => new RequestHistoryTreeItem(state));
     } catch (error) {

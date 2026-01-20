@@ -38,7 +38,7 @@ function getTokenColors(themeName: string): TokenColor[] {
     if (!themePath) {
       throw new Error("Theme path empty");
     }
-    const themeData = readFileSync(themePath).toString("utf-8");
+    const themeData = readFileSync(themePath, { encoding: "utf8" });
     const theme: any = JSON.parse(themeData);
 
     if (theme) {

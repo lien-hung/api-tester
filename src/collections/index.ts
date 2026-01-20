@@ -107,7 +107,7 @@ export default class CollectionsProvider implements TreeDataProvider<Collections
       if (!fs.existsSync(this.filePath)) {
         fs.writeFileSync(this.filePath, "{}");
       }
-      const dataStr = fs.readFileSync(this.filePath).toString("utf8");
+      const dataStr = fs.readFileSync(this.filePath, { encoding: "utf8" });
       const data = JSON.parse(dataStr);
       Object.keys(data).forEach((collection) => {
         const requests = data[collection];
