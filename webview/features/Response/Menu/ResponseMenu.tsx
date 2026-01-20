@@ -7,7 +7,6 @@ import SelectWrapper from "../../../components/SelectWrapper";
 import { COMMON, OPTION, RESPONSE } from "../../../constants/index";
 import useStore from "../../../store/useStore";
 import ResponseMetaData from "../MetaData/ResponseMetaData";
-import ResponseMenuOption from "./ResponseMenuOption";
 
 type OnClickCallback = (event: MouseEvent<HTMLHeadingElement>) => void;
 
@@ -29,27 +28,24 @@ const ResponseMenu = () => {
   };
 
   return (
-    <>
-      <DetailOption>
-        <SelectWrapper>
-          {OPTION.RESPONSE_MENU_OPTIONS.map((responseMenuOption, index) => (
-            <React.Fragment key={RESPONSE.RESPONSE + index}>
-              <MenuOption
-                currentOption={responseOption}
-                menuOption={responseMenuOption}
-              >
-                <h3 onClick={handleHeadingTextClick}>{responseMenuOption}</h3>
-              </MenuOption>
-              {responseMenuOption === COMMON.HEADERS && (
-                <p>({responseData?.headersLength})</p>
-              )}
-            </React.Fragment>
-          ))}
-        </SelectWrapper>
-        {responseData && <ResponseMetaData {...responseData} />}
-      </DetailOption>
-      <ResponseMenuOption />
-    </>
+    <DetailOption>
+      <ResponseMetaData {...responseData} />
+      <SelectWrapper>
+        {OPTION.RESPONSE_MENU_OPTIONS.map((responseMenuOption, index) => (
+          <React.Fragment key={RESPONSE.RESPONSE + index}>
+            <MenuOption
+              currentOption={responseOption}
+              menuOption={responseMenuOption}
+            >
+              <h3 onClick={handleHeadingTextClick}>{responseMenuOption}</h3>
+            </MenuOption>
+            {responseMenuOption === COMMON.HEADERS && (
+              <p>({responseData?.headersLength})</p>
+            )}
+          </React.Fragment>
+        ))}
+      </SelectWrapper>
+    </DetailOption>
   );
 };
 

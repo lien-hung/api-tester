@@ -10,7 +10,7 @@ const DetailOption = ({ children, requestMenu }: IDetailOptionProps) => {
 
 const DetailOptionWrapper = styled.div<{ purpose?: boolean }>`
   display: flex;
-  justify-content: ${(props) => props.purpose ? "" : "space-between"};
+  flex-flow: ${(props) => props.purpose ? "row" : "column"};
   margin: 0;
   padding-left: ${(props) => props.purpose ? "1.3rem" : "0"};
   flex: 0 1 auto;

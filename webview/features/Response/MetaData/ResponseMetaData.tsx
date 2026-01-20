@@ -4,17 +4,17 @@ import styled from "styled-components";
 import { OPTION, RESPONSE } from "../../../constants/index";
 
 interface IResponseMetaDataProps {
-  responseSize: number;
-  requestTime: number;
-  statusCode: number;
-  statusText: string;
+  responseSize?: number;
+  requestTime?: number;
+  statusCode?: number;
+  statusText?: string;
 }
 
 const ResponseMetaData = ({
-  responseSize,
-  requestTime,
-  statusCode,
-  statusText,
+  responseSize = 0,
+  requestTime = 0,
+  statusCode = 0,
+  statusText = "",
 }: IResponseMetaDataProps) => {
   const time = requestTime >= 1000 ? `${(requestTime / 1000).toFixed(2)} s` : `${requestTime} ms`;
   const statusCodeAndText = `${statusCode} ${statusText}`;
@@ -39,18 +39,18 @@ const ResponseMetaData = ({
 
 const ResponseMetaDataContainer = styled.div`
   display: flex;
-  align-items: flex-end;
-  margin: 0 1.4rem 0.35rem 0;
+  margin-bottom: 0.45rem;
 `;
 
 const MetaDataContainer = styled.div<{ secondary: boolean }>`
   display: flex;
   align-items: center;
-  margin: 0 0 0 1.4rem;
-  padding-bottom: 0.35rem;
+  margin: 1.6rem 0 0 1.3rem;
+  padding-bottom: 0.5rem;
 
   span {
     margin-left: 0.2rem;
+    font-size: 1.2rem;
     font-weight: 400;
   }
 

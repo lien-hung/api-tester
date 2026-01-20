@@ -75,7 +75,7 @@ const RequestPanelWrapper = styled.div`
 const RequestMainForm = styled.form`
   display: flex;
   flex: 0 1 auto;
-  margin: 1.3rem;
+  margin: 1rem 1.3rem;
 `;
 
 export default RequestPanel;

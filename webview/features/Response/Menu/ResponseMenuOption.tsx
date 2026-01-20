@@ -26,7 +26,13 @@ const ResponseMenuOption = () => {
 
   switch (responseOption) {
     case COMMON.HEADERS:
-      return responseHeaders && <KeyValueTable keyValueTableData={responseHeaders} tableReadOnly />;
+      return responseHeaders && (
+        <KeyValueTable
+          title="Response Headers"
+          keyValueTableData={responseHeaders}
+          tableReadOnly
+        />
+      );
     default:
       return (
         <>

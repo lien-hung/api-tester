@@ -8,6 +8,7 @@ import useStore from "../../../store/useStore";
 import ResponseEmptyMenu from "../Empty/ResponseEmptyMenu";
 import ResponseErrorMenu from "../Error/ResponseErrorMenu";
 import ResponseMenu from "../Menu/ResponseMenu";
+import ResponseMenuOption from "../Menu/ResponseMenuOption";
 
 const ResponsePanel = () => {
   const {
@@ -69,6 +70,7 @@ const ResponsePanel = () => {
     case COMMON.LOADING:
       return (
         <ResponsePanelWrapper>
+          <ResponseMenu />
           <Loader />
         </ResponsePanelWrapper>
       );
@@ -76,17 +78,20 @@ const ResponsePanel = () => {
       return (
         <ResponsePanelWrapper>
           <ResponseMenu />
+          <ResponseMenuOption />
         </ResponsePanelWrapper>
       );
     case RESPONSE.ERROR:
       return (
         <ResponsePanelWrapper>
+          <ResponseMenu />
           <ResponseErrorMenu {...responseData} />
         </ResponsePanelWrapper>
       );
     default:
       return (
         <ResponsePanelWrapper>
+          <ResponseMenu />
           <ResponseEmptyMenu />
         </ResponsePanelWrapper>
       );
