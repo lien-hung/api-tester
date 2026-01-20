@@ -152,7 +152,6 @@ const RequestCodeSnippet = () => {
       </SelectWrapper>
       <CodeEditor
         codeEditorValue={codeSnippetValue}
-        editorWidth="100%"
         editorOption={OPTION.CODE_SNIPPET_EDITOR_OPTIONS}
         language={codeSnippetOption.editorLanguage.toLowerCase()}
         handleEditorChange={() => undefined}

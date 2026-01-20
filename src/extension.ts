@@ -1,11 +1,12 @@
 import * as vscode from 'vscode';
 
 import CollectionsProvider from './collections';
+import { RequestCollection, RequestCollectionItem } from './collections/tree-items';
 import { COMMAND, MESSAGE, TYPE } from "./constants";
 import RequestHistoryProvider from './request-history';
-import MainWebviewPanel from './webview-panel';
 import { RequestHistoryTreeItem } from './request-history/tree-items';
-import { RequestCollection, RequestCollectionItem } from './collections/tree-items';
+import MainWebviewPanel from './webview-panel';
+import getTokenColors from './utils/getTokenColors';
 
 export async function activate(context: vscode.ExtensionContext) {
 	const requestHistoryProvider = new RequestHistoryProvider(context);
@@ -211,8 +212,12 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	const disp_onThemeChangeHandler = vscode.window.onDidChangeActiveColorTheme(() => {
 		if (currentPanel) {
+			const themeName: string = vscode.workspace.getConfiguration("workbench").get("colorTheme") || "";
+      const tokenColors = getTokenColors(themeName);
+
 			currentPanel.webview.postMessage({
-				type: TYPE.THEME_CHANGED
+				type: TYPE.THEME_CHANGED,
+				tokenColors
 			});
 		}
 	});

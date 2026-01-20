@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { COMMON, OPTION, REQUEST, RESPONSE } from "../constants";
 import ResponsePreview from "../features/Response/Preview/ResponsePreview";
 import { getCurrentTheme } from "../utils";
-import { IEditorTheme } from "../utils/type";
+import { IEditorTheme, ITokenColor } from "../utils/type";
 
 interface ICodeEditorProps {
   language: string;
@@ -13,7 +13,6 @@ interface ICodeEditorProps {
   requestForm?: boolean;
   previewMode?: boolean;
   editorOption: any;
-  editorWidth: string;
   codeEditorValue: string;
   shouldBeautifyEditor?: boolean;
   handleEditorChange?: (value: string | undefined) => void;
@@ -26,7 +25,6 @@ function CodeEditor({
   requestForm,
   previewMode,
   editorOption,
-  editorWidth,
   codeEditorValue,
   shouldBeautifyEditor,
   handleEditorChange,
@@ -35,17 +33,15 @@ function CodeEditor({
   const editorRef = useRef<any>(null);
   const monacoRef = useRef<Monaco>(null);
   const currentThemeRef = useRef<IEditorTheme>(getCurrentTheme());
+  const tokenColorsRef = useRef<ITokenColor[]>([]);
 
   const setEditorTheme = () => {
-    if (!monacoRef.current) {
-      return;
-    }
+    if (!monacoRef.current) return;
 
-    currentThemeRef.current = getCurrentTheme();
     monacoRef.current.editor.defineTheme("currentTheme", {
       base: currentThemeRef.current.base,
       inherit: true,
-      rules: [],
+      rules: tokenColorsRef.current,
       colors: currentThemeRef.current.colors,
     });
     monacoRef.current.editor.setTheme("currentTheme");
@@ -59,12 +55,18 @@ function CodeEditor({
 
   const handleExtensionMessage = (event: MessageEvent) => {
     if (event.data.type === COMMON.THEME_CHANGED) {
+      currentThemeRef.current = getCurrentTheme();
+    }
+    if (event.data.type === COMMON.THEME_CHANGED || event.data.type === COMMON.HAS_TOKEN_COLORS) {      
+      tokenColorsRef.current = event.data.tokenColors;
       setEditorTheme();
     }
   };
 
   useEffect(() => {
     window.addEventListener("message", handleExtensionMessage);
+
+    vscode.postMessage({ command: COMMON.INIT_TOKEN_COLORS });
   }, []);
 
   useEffect(() => {
@@ -105,14 +107,9 @@ function CodeEditor({
         <ResponsePreview sourceCode={codeEditorValue} />
       ) : (
         <Editor
-          width={editorWidth}
-          height="100%"
           language={language}
           value={codeEditorValue}
-          options={{
-            ...editorOption,
-            fontFamily: currentThemeRef.current.fontFamily
-          }}
+          options={{ ...editorOption, fontFamily: currentThemeRef.current.fontFamily }}
           onChange={handleEditorChange}
           onMount={handleEditorDidMount}
         />

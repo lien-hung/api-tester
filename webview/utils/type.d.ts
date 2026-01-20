@@ -26,3 +26,10 @@ export interface IEditorTheme {
   };
   fontFamily: string;
 }
+
+export interface ITokenColor {
+  token: string;
+  foreground?: string;
+  background?: string;
+  fontStyle?: string;
+}

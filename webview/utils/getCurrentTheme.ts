@@ -2,17 +2,9 @@ import { OPTION } from "../constants";
 import { IEditorTheme } from "./type";
 
 const getCurrentTheme = (): IEditorTheme => {
-  const currentEditor = document.querySelector("html");
-  if (!currentEditor) {
-    return {
-      base: "vs-dark",
-      colors: {},
-      fontFamily: OPTION.EDITOR_DEFAULT_FONT_FAMILY
-    };
-  }
-
+  const currentEditor = document.documentElement;
   const currentBody = currentEditor.querySelector("body");
-  if (!currentBody) {
+  if (!currentEditor || !currentBody) {
     return {
       base: "vs-dark",
       colors: {},
@@ -44,7 +36,6 @@ const getCurrentTheme = (): IEditorTheme => {
     "editorSuggestWidget.foreground": editorStyles.getPropertyValue("--vscode-editorSuggestWidget-foreground"),
     "editorSuggestWidget.focusHighlightForeground": editorStyles.getPropertyValue("--vscode-editorSuggestWidget-focusHighlightForeground"),
     "editorSuggestWidget.highlightForeground": editorStyles.getPropertyValue("--vscode-editorSuggestWidget-highlightForeground"),
-    "editorSuggestWidget.selectedBackground": editorStyles.getPropertyValue("--vscode-editorSuggestWidget-selectedBackground"),
     "editorSuggestWidget.selectedForeground": editorStyles.getPropertyValue("--vscode-editorSuggestWidget-selectedForeground"),
 
     // Sticky scroll
@@ -54,9 +45,6 @@ const getCurrentTheme = (): IEditorTheme => {
     "editorHoverWidget.background": editorStyles.getPropertyValue("--vscode-editorHoverWidget-background"),
     "editorHoverWidget.focusHighlightForeground": editorStyles.getPropertyValue("--vscode-editorHoverWidget-focusHighlightForeground"),
     "editorHoverWidget.highlightForeground": editorStyles.getPropertyValue("--vscode-editorHoverWidget-highlightForeground"),
-
-    // Text selection
-    "selection.background": editorStyles.getPropertyValue("--vscode-selection-background"),
   };
 
   // Font family

@@ -21,6 +21,8 @@ const COMMAND = {
   ALERT_COPY: "Alert Copy",
   HAS_CONFIG: "Has Config",
   INIT_CONFIG: "Init Config",
+  HAS_TOKEN_COLORS: "Has Token Colors",
+  INIT_TOKEN_COLORS: "Init Token Colors",
 };
 
 export default COMMAND;

@@ -12,6 +12,7 @@ import {
 import { IRequestHeaderInformation, IRequestObjectType } from "./utils/type";
 import RequestHistoryProvider from "./request-history";
 import CollectionsProvider from "./collections";
+import getTokenColors from "./utils/getTokenColors";
 
 class MainWebviewPanel {
   private url: string = "";
@@ -87,6 +88,21 @@ class MainWebviewPanel {
 
           if (this.mainPanel) {
             this.mainPanel.webview.postMessage(configObject);
+          }
+          return;
+        }
+
+        if (command === COMMAND.INIT_TOKEN_COLORS) {
+          const themeName: string = vscode.workspace.getConfiguration("workbench").get("colorTheme") || "";
+          const tokenColors = getTokenColors(themeName);
+
+          const tokenColorsObject = {
+            type: COMMAND.HAS_TOKEN_COLORS,
+            tokenColors
+          };
+
+          if (this.mainPanel) {
+            this.mainPanel.webview.postMessage(tokenColorsObject);
           }
           return;
         }

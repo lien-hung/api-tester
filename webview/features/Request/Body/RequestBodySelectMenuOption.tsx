@@ -62,7 +62,6 @@ const RequestBodySelectMenuOption = () => {
         <CodeEditor
           language={bodyRawOption}
           editorOption={OPTION.EDITOR_OPTIONS}
-          editorWidth="100%"
           codeEditorValue={
             bodyRawData[
             bodyRawOption as keyof {

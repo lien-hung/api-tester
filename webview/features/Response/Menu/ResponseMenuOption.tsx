@@ -40,7 +40,6 @@ const ResponseMenuOption = () => {
             }
             viewOption={responseBodyOption}
             editorOption={OPTION.EDITOR_OPTIONS}
-            editorWidth="100%"
             previewMode
           />
         </>
