@@ -136,8 +136,7 @@ const TableContainerWrapper = styled.div`
   justify-content: center;
   margin: 1.3rem;
   flex: 1 1 auto;
-  overflow-y: scroll;
-  scrollbar-width: none;
+  overflow-y: auto;
 `;
 
 const TableContainer = styled.div`
