@@ -25,7 +25,7 @@
       {
         "title": "New Request",
         "command": "api-tester.newRequest",
-        "category": "General",
+        "category": "API Tester",
         "icon": {
           "light": "icons/svg/add-light.svg",
           "dark": "icons/svg/add-dark.svg"
@@ -34,23 +34,28 @@
       {
         "title": "Open Request",
         "shortTitle": "Open",
-        "command": "api-tester.openRequest",
-        "category": "General"
+        "command": "api-tester.openRequest"
       },
       {
-        "title": "Delete Request",
-        "shortTitle": "Delete",
+        "title": "Delete",
         "command": "api-tester.deleteRequest",
-        "category": "General",
         "icon": {
           "light": "icons/svg/delete-light.svg",
           "dark": "icons/svg/delete-dark.svg"
         }
       },
       {
+        "title": "Rename",
+        "command": "api-tester.renameRequest"
+      },
+      {
+        "title": "Save to Collection",
+        "command": "api-tester.saveToCollection"
+      },
+      {
         "title": "Refresh",
         "command": "api-tester.refresh",
-        "category": "General",
+        "category": "API Tester",
         "icon": {
           "light": "icons/svg/refresh-light.svg",
           "dark": "icons/svg/refresh-dark.svg"
@@ -59,7 +64,7 @@
       {
         "title": "Clear History",
         "command": "api-tester.clearHistory",
-        "category": "Request History",
+        "category": "API Tester",
         "icon": {
           "light": "icons/svg/delete-light.svg",
           "dark": "icons/svg/delete-dark.svg"
@@ -68,7 +73,7 @@
       {
         "title": "New Collection",
         "command": "api-tester.newCollection",
-        "category": "Collection",
+        "category": "API Tester",
         "icon": {
           "light": "icons/svg/new-collection-light.svg",
           "dark": "icons/svg/new-collection-dark.svg"
@@ -76,18 +81,15 @@
       },
       {
         "title": "Rename",
-        "command": "api-tester.renameCollection",
-        "category": "Collection"
+        "command": "api-tester.renameCollection"
       },
       {
         "title": "Delete",
-        "command": "api-tester.deleteCollection",
-        "category": "Collection"
+        "command": "api-tester.deleteCollection"
       },
       {
         "title": "New Request",
         "command": "api-tester.newRequestInCollection",
-        "category": "Collection",
         "icon": {
           "light": "icons/svg/add-light.svg",
           "dark": "icons/svg/add-dark.svg"
@@ -95,18 +97,15 @@
       },
       {
         "title": "Clear Items",
-        "command": "api-tester.clearItemsInCollection",
-        "category": "Collection"
+        "command": "api-tester.clearItemsInCollection"
       },
       {
         "title": "Rename",
-        "command": "api-tester.renameRequest",
-        "category": "Collection Request"
+        "command": "api-tester.renameRequestInCollection"
       },
       {
         "title": "Delete",
-        "command": "api-tester.deleteRequestInCollection",
-        "category": "Collection Request"
+        "command": "api-tester.deleteRequestInCollection"
       }
     ],
     "views": {
@@ -143,6 +142,48 @@
       }
     ],
     "menus": {
+      "commandPalette": [
+        {
+          "command": "api-tester.openRequest",
+          "when": "false"
+        },
+        {
+          "command": "api-tester.deleteRequest",
+          "when": "false"
+        },
+        {
+          "command": "api-tester.renameRequest",
+          "when": "false"
+        },
+        {
+          "command": "api-tester.saveToCollection",
+          "when": "false"
+        },
+        {
+          "command": "api-tester.renameCollection",
+          "when": "false"
+        },
+        {
+          "command": "api-tester.deleteCollection",
+          "when": "false"
+        },
+        {
+          "command": "api-tester.newRequestInCollection",
+          "when": "false"
+        },
+        {
+          "command": "api-tester.clearItemsInCollection",
+          "when": "false"
+        },
+        {
+          "command": "api-tester.renameRequestInCollection",
+          "when": "false"
+        },
+        {
+          "command": "api-tester.deleteRequestInCollection",
+          "when": "false"
+        }
+      ],
       "view/title": [
         {
           "command": "api-tester.refresh",
@@ -172,6 +213,21 @@
           "group": "inline"
         },
         {
+          "command": "api-tester.saveToCollection",
+          "when": "view == apiTesterRequestHistoryTreeView && viewItem == userRequestHistory.item",
+          "group": "a@1"
+        },
+        {
+          "command": "api-tester.renameRequest",
+          "when": "view == apiTesterRequestHistoryTreeView && viewItem == userRequestHistory.item",
+          "group": "a@2"
+        },
+        {
+          "command": "api-tester.deleteRequest",
+          "when": "view == apiTesterRequestHistoryTreeView && viewItem == userRequestHistory.item",
+          "group": "a@3"
+        },
+        {
           "command": "api-tester.newRequestInCollection",
           "when": "view == apiTesterCollectionsTreeView && viewItem == userCollection.collection",
           "group": "inline"
@@ -197,7 +253,7 @@
           "group": "b@3"
         },
         {
-          "command": "api-tester.renameRequest",
+          "command": "api-tester.renameRequestInCollection",
           "when": "view == apiTesterCollectionsTreeView && viewItem == userCollection.item",
           "group": "a@1"
         },
@@ -240,6 +296,9 @@
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
     "@types/postman-collection": "^3.5.11",
+    "@types/react": "^19.2.9",
+    "@types/react-dom": "^19.2.3",
+    "@types/styled-components": "^5.1.36",
     "@types/vscode": "^1.107.0",
     "@vscode/test-cli": "^0.0.12",
     "@vscode/test-electron": "^2.5.2",
@@ -256,9 +315,6 @@
   },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
-    "@types/react": "^19.2.7",
-    "@types/react-dom": "^19.2.3",
-    "@types/styled-components": "^5.1.36",
     "form-data": "^4.0.5",
     "postman-code-generators": "^2.1.0",
     "postman-collection": "^5.2.0",
