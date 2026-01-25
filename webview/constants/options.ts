@@ -35,14 +35,12 @@ const OPTION = {
   LOADER_CSS_OPTIONS: { opacity: "0.85" },
   EDITOR_OPTIONS: {
     tabSize: 2,
-    smoothScrolling: true,
     renderWhitespace: false,
     minimap: { enabled: false },
     scrollBeyondLastLine: false,
   },
   CODE_SNIPPET_EDITOR_OPTIONS: {
     tabSize: 2,
-    smoothScrolling: true,
     renderWhitespace: false,
     minimap: { enabled: false },
     scrollBeyondLastLine: false,
