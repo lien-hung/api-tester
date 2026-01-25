@@ -90,6 +90,11 @@ function getTokenColors(themeName: string): TokenColor[] {
     { token: "string.key.json",   ...tokenColorObject[propertyNameJson], },
     { token: "string.value.json", ...tokenColorObject[stringQuotedDouble || "string"], },
     { token: "keyword.json",      ...tokenColorObject[constantLanguageBoolean || constantLanguage] },
+
+    // HTML/XML
+    { token: "metatag.xml",    ...tokenColorObject["entity.name.tag"] },
+    { token: "delimiter.html", ...tokenColorObject["punctuation.definition.tag"] },
+    { token: "delimiter.xml",  ...tokenColorObject["punctuation.definition.tag"] },
   ];
 }
 
