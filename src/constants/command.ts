@@ -2,6 +2,8 @@ const COMMAND = {
   NEW_REQUEST: "api-tester.newRequest",
   OPEN_REQUEST: "api-tester.openRequest",
   DELETE_REQUEST: "api-tester.deleteRequest",
+  RENAME_REQUEST: "api-tester.renameRequest",
+  SAVE_TO_COLLECTION: "api-tester.saveToCollection",
 
   REFRESH: "api-tester.refresh",
 
@@ -13,7 +15,7 @@ const COMMAND = {
 
   NEW_COLLECTION_REQUEST: "api-tester.newRequestInCollection",
   CLEAR_COLLECTION_ITEMS: "api-tester.clearItemsInCollection",
-  RENAME_REQUEST: "api-tester.renameRequest",
+  RENAME_COLLECTION_REQUEST: "api-tester.renameRequestInCollection",
   DELETE_COLLECTION_REQUEST: "api-tester.deleteRequestInCollection",
 
   ADD: "Add",

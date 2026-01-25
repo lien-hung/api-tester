@@ -55,7 +55,7 @@ export default class CollectionsProvider implements TreeDataProvider<Collections
       delete this.tree[item.name];
     } else if (item instanceof RequestCollectionItem) {
       const collection = item.parent.name;
-      this.tree[collection].deleteItem(item.request.name);
+      this.tree[collection].deleteItem(item.id!);
     }
     this.refresh();
     this.save();
@@ -78,18 +78,14 @@ export default class CollectionsProvider implements TreeDataProvider<Collections
     this.save();
   }
 
-  public renameItem(collection: string, oldName: string, newName: string) {
-    this.tree[collection].renameItem(oldName, newName);
+  public renameItem(collection: string, id: string, newName: string) {
+    this.tree[collection].renameItem(id, newName);
     this.refresh();
     this.save();
   }
 
   public isCollectionExist(collection: string) {
     return Object.keys(this.tree).findIndex(name => collection === name) !== -1;
-  }
-
-  public isRequestInCollection(collection: string, requestName: string) {
-    return this.tree[collection].items.some(item => item.request.name === requestName);
   }
 
   public clear() {
@@ -100,6 +96,10 @@ export default class CollectionsProvider implements TreeDataProvider<Collections
 
   private get filePath() {
     return getHomePath("collections.json");
+  }
+
+  public get collectionNames() {
+    return Object.keys(this.tree);
   }
 
   private readFile() {

@@ -12,7 +12,6 @@ const MESSAGE = {
 
   NAME_EMPTY: "Name cannot be empty",
   COLLECTION_EXISTS: "A collection with this name already exists",
-  REQUEST_EXISTS: "A request with this name already exists in this collection"
 };
 
 export default MESSAGE;

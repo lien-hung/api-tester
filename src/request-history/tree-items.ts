@@ -8,7 +8,7 @@ export class RequestHistoryTreeItem extends TreeItem {
   public contextValue = `${COLLECTION.REQUEST_HISTORY}.item`;
 
   constructor(public request: IRequestTreeItemState) {
-    super(request.url, TreeItemCollapsibleState.None);
+    super(request.name || request.url, TreeItemCollapsibleState.None);
     this.id = request.id;
     this.description = getElapsedTime(request.requestedTime);
     this.tooltip = `${request.method} ${request.url}\nCreated at ${new Date(request.requestedTime).toLocaleString()}`;

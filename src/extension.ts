@@ -31,11 +31,11 @@ export async function activate(context: vscode.ExtensionContext) {
 		return inputName.trim();
 	};
 
-	const initializePanel = (collectionName?: string, requestName?: string) => {
+	const initializePanel = (collectionName?: string, requestName?: string, id?: string) => {
 		if (currentPanel) {
 			currentPanel.reveal(vscode.ViewColumn.One);
 		} else {
-			currentPanel = webviewProvider.initializeWebview(collectionName, requestName);
+			currentPanel = webviewProvider.initializeWebview(id, collectionName, requestName);
 			if (webviewProvider.mainPanel) {
 				webviewProvider.mainPanel.onDidDispose(() => {
 					currentPanel = null;
@@ -70,7 +70,7 @@ export async function activate(context: vscode.ExtensionContext) {
 		(item: RequestHistoryTreeItem | RequestCollectionItem) => {
 			if (!currentPanel) {
 				if (item instanceof RequestCollectionItem) {
-					initializePanel(item.parent.name, item.request.name);
+					initializePanel(item.parent.name, item.request.name, item.id);
 				} else {
 					initializePanel();
 				}
@@ -91,6 +91,37 @@ export async function activate(context: vscode.ExtensionContext) {
 		COMMAND.DELETE_REQUEST,
 		(item: RequestHistoryTreeItem) => {
 			requestHistoryProvider.delete(item);
+		}
+	);
+
+	const disp_renameRequestCmd = vscode.commands.registerCommand(
+		COMMAND.RENAME_REQUEST,
+		async (item: RequestHistoryTreeItem) => {
+			const requestName = await handleInputName();
+			if (!requestName) {
+				return;
+			}
+
+			const newRequest = { ...item.request, name: requestName };
+			requestHistoryProvider.delete(item);
+			requestHistoryProvider.add(newRequest);
+		}
+	);
+
+	const disp_saveToCollectionCmd = vscode.commands.registerCommand(
+		COMMAND.SAVE_TO_COLLECTION,
+		async (item: RequestHistoryTreeItem) => {
+			const collectionName = await vscode.window.showQuickPick(
+				collectionsProvider.collectionNames,
+				{
+					placeHolder: "Select a collection",
+					canPickMany: false
+				}
+			);
+
+			if (collectionName) {
+				collectionsProvider.add(collectionName, item.request);
+			}
 		}
 	);
 
@@ -168,11 +199,6 @@ export async function activate(context: vscode.ExtensionContext) {
 			if (!requestName) {
 				return;
 			}
-			if (collectionsProvider.isRequestInCollection(collection.name, requestName)) {
-				await vscode.window.showInformationMessage(MESSAGE.REQUEST_EXISTS);
-				return;
-			}
-
 			initializePanel(collection.name, requestName);
 		}
 	);
@@ -184,22 +210,15 @@ export async function activate(context: vscode.ExtensionContext) {
 		}
 	);
 
-	const disp_renameRequestCmd = vscode.commands.registerCommand(
-		COMMAND.RENAME_REQUEST,
+	const disp_renameCollectionRequestCmd = vscode.commands.registerCommand(
+		COMMAND.RENAME_COLLECTION_REQUEST,
 		async (requestItem: RequestCollectionItem) => {
 			const collectionName = requestItem.parent.name;
-			const requestName = requestItem.request.name;
-
 			const newRequestName = await handleInputName();
 			if (!newRequestName) {
 				return;
 			}
-
-			if (collectionsProvider.isRequestInCollection(collectionName, requestName)) {
-				await vscode.window.showInformationMessage(MESSAGE.REQUEST_EXISTS);
-				return;
-			}
-			collectionsProvider.renameItem(collectionName, requestName, newRequestName);
+			collectionsProvider.renameItem(collectionName, requestItem.id!, newRequestName);
 		}
 	);
 
@@ -213,7 +232,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	const disp_onThemeChangeHandler = vscode.window.onDidChangeActiveColorTheme(() => {
 		if (currentPanel) {
 			const themeName: string = vscode.workspace.getConfiguration("workbench").get("colorTheme") || "";
-      const tokenColors = getTokenColors(themeName);
+			const tokenColors = getTokenColors(themeName);
 
 			currentPanel.webview.postMessage({
 				type: TYPE.THEME_CHANGED,
@@ -230,6 +249,8 @@ export async function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(disp_newRequestCmd);
 	context.subscriptions.push(disp_openRequestCmd);
 	context.subscriptions.push(disp_deleteRequestCmd);
+	context.subscriptions.push(disp_renameRequestCmd);
+	context.subscriptions.push(disp_saveToCollectionCmd);
 
 	context.subscriptions.push(disp_refreshCmd);
 	context.subscriptions.push(disp_clearHistoryCmd);
@@ -239,7 +260,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(disp_deleteCollectionCmd);
 	context.subscriptions.push(disp_newCollectionRequestCmd);
 	context.subscriptions.push(disp_clearCollectionItemsCmd);
-	context.subscriptions.push(disp_renameRequestCmd);
+	context.subscriptions.push(disp_renameCollectionRequestCmd);
 	context.subscriptions.push(disp_deleteCollectionRequestCmd);
 
 	// Subscribe handlers

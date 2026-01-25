@@ -28,7 +28,7 @@ export class RequestCollection extends TreeItem {
     if (!request.name) {
       return;
     }
-    const requestIndex = this.items.findIndex(item => item.request.name === request.name);
+    const requestIndex = this.items.findIndex(item => item.request.id === request.id);
     const newRequestItem = new RequestCollectionItem(request, this);
     if (requestIndex !== -1) {
       this.items.splice(requestIndex, 1, newRequestItem);
@@ -37,8 +37,8 @@ export class RequestCollection extends TreeItem {
     }
   }
 
-  public renameItem(name: string, newName: string) {
-    const requestIndex = this.items.findIndex(item => item.request.name === name);
+  public renameItem(id: string, newName: string) {
+    const requestIndex = this.items.findIndex(item => item.id === id);
     if (requestIndex === -1) {
       return;
     }
@@ -47,8 +47,8 @@ export class RequestCollection extends TreeItem {
     this.items.splice(requestIndex, 1, new RequestCollectionItem(renamedRequest, this));
   }
 
-  public deleteItem(name: string) {
-    this.items = this.items.filter(item => item.request.name !== name);
+  public deleteItem(id: string) {
+    this.items = this.items.filter(item => item.id !== id);
   }
 
   public clearItems() {

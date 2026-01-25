@@ -20,6 +20,7 @@ class MainWebviewPanel {
   private method: string = "";
   private headers: IRequestHeaderInformation = { key: "" };
   public mainPanel: vscode.WebviewPanel | null = null;
+  private id: string | undefined;
   private collectionName: string | undefined;
   private requestName: string | undefined;
   private extensionUri;
@@ -36,7 +37,8 @@ class MainWebviewPanel {
     this.collectionsProvider = collectionsProvider;
   }
 
-  initializeWebview(collectionName?: string, requestName?: string) {
+  initializeWebview(id?: string, collectionName?: string, requestName?: string) {
+    this.id = id;
     this.collectionName = collectionName;
     this.requestName = requestName;
 
@@ -158,13 +160,15 @@ class MainWebviewPanel {
         this.mainPanel.webview.postMessage(responseObject);
 
         if (this.collectionName && this.requestName) {
-          this.collectionsProvider.add(this.collectionName, {
+          const newRequest = {
             ...requestData,
             requestedTime,
-            id: crypto.randomUUID(),
+            id: this.id || crypto.randomUUID(),
             name: this.requestName,
             requestObject,
-          });
+          };
+          this.collectionsProvider.add(this.collectionName, newRequest);
+          this.id = newRequest.id;
         } else {
           this.requestHistoryProvider.add({
             ...requestData,
