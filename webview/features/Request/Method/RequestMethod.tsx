@@ -22,13 +22,13 @@ const RequestMethod = () => {
       value={requestMethod}
       onChange={(event) => handleRequestMethodChange(event.target.value)}
     >
-      <button>
+      <button className={requestMethod.toLowerCase()}>
         {/* @ts-ignore */}
         <selectedcontent></selectedcontent>
       </button>
       {requestMethodOptions.map((method, index) => (
-        <option key={REQUEST.METHOD + index} value={method}>
-          <span id={method.toLowerCase()}>{method}</span>
+        <option className={method.toLowerCase()} key={REQUEST.METHOD + index} value={method}>
+          {method}
         </option>
       ))}
     </MethodSelectOptionWrapper>
@@ -63,13 +63,13 @@ const MethodSelectOptionWrapper = styled.select`
     }
   }
 
-  #get     { color: #6BDD9A; }
-  #post    { color: #FFE47E; }
-  #put     { color: #74AEF6; }
-  #patch   { color: #C0A8E1; }
-  #delete  { color: #F79A8E; }
-  #head    { color: #6BDD9A; }
-  #options { color: #F15EB0; }
+  .get     { color: #6BDD9A; }
+  .post    { color: #FFE47E; }
+  .put     { color: #74AEF6; }
+  .patch   { color: #C0A8E1; }
+  .delete  { color: #F79A8E; }
+  .head    { color: #6BDD9A; }
+  .options { color: #F15EB0; }
 `;
 
 export default RequestMethod;

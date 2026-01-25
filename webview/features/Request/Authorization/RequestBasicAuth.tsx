@@ -26,19 +26,21 @@ const RequestBasicAuth = () => {
     <Wrapper>
       <InputWrapper>
         <label htmlFor="username">Username:</label>
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={authData.username}
-          onChange={(event) =>
-            handleRequestAuthData(REQUEST.USERNAME, event.target.value)
-          }
-        />
+        <PasswordWrapper>
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            value={authData.username}
+            onChange={(event) =>
+              handleRequestAuthData(REQUEST.USERNAME, event.target.value)
+            }
+          />
+        </PasswordWrapper>
       </InputWrapper>
       <InputWrapper>
         <label htmlFor="password">Password:</label>
-        <div>
+        <PasswordWrapper>
           <input
             type={shouldShowPassword ? "text" : "password"}
             name="password"
@@ -51,7 +53,7 @@ const RequestBasicAuth = () => {
           <PasswordIconButton type="button" onClick={() => setShouldShowPassword(!shouldShowPassword)}>
             <img src={shouldShowPassword ? passwordShowIcon : passwordHideIcon} />
           </PasswordIconButton>
-        </div>
+        </PasswordWrapper>
       </InputWrapper>
     </Wrapper>
   );
@@ -61,13 +63,17 @@ const PasswordIconButton = styled.button`
   width: auto;
   float: right;
   padding: 0;
-  margin: -2.25rem -2rem 0 0;
+  margin: -2.25rem 0.5rem 0 0;
   background: none;
 
   &:hover {
     background-color: transparent;
     opacity: 0.7;
   }
+`;
+
+const PasswordWrapper = styled.div`
+  flex: 1 1 auto;
 `;
 
 export default RequestBasicAuth;

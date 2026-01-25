@@ -35,7 +35,7 @@ const RequestUrl = () => {
       ? removeFirstParam(requestUrl)
       : requestUrl;
 
-  const [displayUrl, setDisplayUrl] = useState("");
+  const [displayUrl, setDisplayUrl] = useState(initDisplayUrl);
   const prevTableData = usePrevious(keyValueTableData);
   const prevDisplayUrl = usePrevious(displayUrl);
 
@@ -117,7 +117,6 @@ const RequestUrl = () => {
     <InputContainer
       placeholder="Enter request URL"
       value={displayUrl}
-      defaultValue={initDisplayUrl()}
       onChange={(event) => setDisplayUrl(event.target.value)}
     />
   );

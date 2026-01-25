@@ -25,7 +25,7 @@ const RequestAuthApiKey = () => {
   );
 
   const apiKeyRow = keyValueTableData.find((d) => d.authType);
-  if (!apiKeyRow) return <></>;
+  if (!apiKeyRow) return;
 
   const addTo = apiKeyRow.optionType === COMMON.HEADERS
     ? REQUEST.ADD_TO_HEADERS
