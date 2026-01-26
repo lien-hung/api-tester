@@ -40,6 +40,12 @@ const RequestUrl = () => {
   const prevDisplayUrl = usePrevious(displayUrl);
 
   useEffect(() => {
+    const toUrl = (tableData: KeyValueTableData[]) => {
+      const parameterString = generateParameterString(tableData);
+      const baseUrl = removeUrlParameter(displayUrl || requestUrl);
+      return baseUrl + parameterString;
+    };
+
     // Case 1: Table data changed
     if (prevTableData.length !== keyValueTableData.length
       || prevTableData.some((param, i) => !shallow(param, keyValueTableData[i]))
@@ -48,18 +54,12 @@ const RequestUrl = () => {
       const tableData = keyValueTableData.filter(
         d => d.optionType === REQUEST.PARAMS && d.isChecked
       );
-
-      const parameterString = generateParameterString(tableData);
-      const baseUrl = removeUrlParameter(displayUrl || requestUrl);
-      const newUrl = baseUrl + parameterString;
+      const newUrl = toUrl(tableData);
       handleRequestUrlChange(newUrl);
 
       // Set display URL
       if (tableData.some(d => d.authType)) {
-        const nonAuthTable = tableData.filter(d => !d.authType);
-        const nonAuthParameterString = generateParameterString(nonAuthTable);
-        const newDisplayUrl = baseUrl + nonAuthParameterString;
-        setDisplayUrl(newDisplayUrl);
+        setDisplayUrl(toUrl(tableData.filter(d => !d.authType)));
       } else {
         setDisplayUrl(newUrl);
       }
@@ -68,6 +68,7 @@ const RequestUrl = () => {
 
     // Case 2: Request URL changed
     if (prevDisplayUrl !== displayUrl) {
+      const prevUrlParams = getUrlParameters(prevDisplayUrl);
       const urlParams = getUrlParameters(displayUrl);
       const urlParamsCount = urlParams.length;
       const allParams = keyValueTableData.filter(d => d.optionType === REQUEST.PARAMS);
@@ -75,6 +76,9 @@ const RequestUrl = () => {
       const authParam = allParams.find(p => p.authType);
       if (urlParamsCount === 0 && !authParam) {
         handleRequestUrlChange(displayUrl);
+      } else if (prevUrlParams.every((param, i) => shallow(param, urlParams[i]))) {
+        const newUrl = toUrl(allParams.filter(p => p.isChecked));
+        handleRequestUrlChange(newUrl);
       }
 
       // Map existing URL parameters to rows
