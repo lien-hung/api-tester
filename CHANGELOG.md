@@ -2,6 +2,11 @@
 
 All notable changes to the "rest-forge" extension will be documented in this file.
 
+## [v4.1.3]
+- Export feature:
+  - Added export option to Postman collection (JSON) and OpenCollection
+  - Added export feature for environments
+
 ## [v4.1.2]
 - The code snippet feature now uses a smaller, self-made version of `postman-code-generators` with testing and package files stripped, to reduce installation size.
 - Added variable highlight and resolution for authorization data

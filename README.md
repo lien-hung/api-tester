@@ -24,11 +24,13 @@ REST Forge (formerly API Tester) is a UI-based HTTP client to send requests to y
     - Raw: Text, JavaScript, JSON, HTML, XML
     - GraphQL
 - Code snippets for your current request
-- Preview response data and save to computer
-- Organize requests into collections and export to JSON
-  - While mainly for individual use, you can save the exported JSON file to your local repository for Git collaboration.
+- Preview and save responses to disk
+- Organize requests into collections
+- Export collections to JSON, Postman, or Bruno's OpenCollection
+  - While mainly for individual use, you can save the exported file to your local repository for Git collaboration.
 - Search from collections (`Ctrl+Alt+F` on tree view)
 - Manage environments and use variables from active environment
+- Export environments to `.env` files
 
 ## Tech Stacks
 Based on the [REST API Client](https://marketplace.visualstudio.com/items?itemName=unjinjang.rest-api-client) by Unjin Jang, with modifications on the user interface.
