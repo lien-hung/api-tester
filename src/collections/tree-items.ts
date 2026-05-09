@@ -55,10 +55,10 @@ export class RequestItem extends TreeItem {
     let auth;
     switch (authOption) {
       case TYPE.BEARER_TOKEN:
-        auth = { type: "bearer", bearer: { key: "token", value: token } };
+        auth = { type: "bearer", bearer: [{ key: "token", value: token }] };
         break;
       case TYPE.BASIC_AUTH:
-        auth = { type: "basic", basic: { username, password } };
+        auth = { type: "basic", basic: [{ key: "username", value: username }, { key: "password", value: password }] };
         break;
       default:
         auth = { type: "noauth", noauth: {} };
@@ -114,7 +114,7 @@ export class RequestItem extends TreeItem {
   public toOpenCollection() {
     const { name, method, requestObject } = this.request;
     const { requestUrl, tableData, authOption, authData, bodyOption, bodyRawOption, bodyRawData, graphqlData } = requestObject;
-    const { username, password, token, tokenPrefix } = authData;
+    const { username, password, token } = authData;
 
     const url = requestUrl.slice(0, requestUrl.includes("?") ? requestUrl.indexOf("?") : undefined);
     const headers = tableData.headers
@@ -124,15 +124,13 @@ export class RequestItem extends TreeItem {
       .filter((p) => p.key)
       .map((p) => ({ name: p.key, value: p.value, type: "query", enabled: !p.isChecked ? false : undefined }));
 
+    let auth;
     switch (authOption) {
       case TYPE.BEARER_TOKEN:
-        headers.push({ name: TYPE.AUTHORIZATION, value: `${tokenPrefix} ${token}` });
+        auth = { type: "bearer", token };
         break;
       case TYPE.BASIC_AUTH:
-        headers.push({
-          name: TYPE.AUTHORIZATION,
-          value: `Basic ${Buffer.from(`${username}:${password}`).toString("base64")}`
-        });
+        auth = { type: "basic", username, password };
         break;
       default:
         break;
@@ -148,8 +146,8 @@ export class RequestItem extends TreeItem {
             .map((data) => ({
               name: data.key,
               type: data.valueType === "File" ? "file" : "text",
-              value: data.valueType === "File" ? data.filePath : String(data.value),
-              disabled: !data.isChecked ? true : undefined,
+              value: data.valueType === "File" ? [data.filePath] : String(data.value),
+              disabled: !data.isChecked,
             })),
         };
         break;
@@ -161,7 +159,7 @@ export class RequestItem extends TreeItem {
             .map((param) => ({
               name: param.key,
               value: String(param.value),
-              disabled: !param.isChecked ? true : undefined,
+              disabled: !param.isChecked,
             })),
         };
         break;
@@ -182,7 +180,7 @@ export class RequestItem extends TreeItem {
 
     return {
       info: { name, type: "http" },
-      http: { method, url, headers, params, body },
+      http: { method, url, headers, params, body, auth },
     };
   }
 }
