@@ -13,6 +13,7 @@ const MESSAGE = {
   SAVE_ENV_SUCCESSFUL: "Environment saved!",
 
   NAME_EMPTY: "Name cannot be empty",
+  INVALID_NAME: "Name cannot contain the following characters: / \\ ? % * : | \" < >",
   COLLECTION_EXISTS: "A collection with this name already exists",
   FOLDER_EXISTS: "A folder with this name already exists",
   ENVIRONMENT_EXISTS: "An environment with this name already exists",

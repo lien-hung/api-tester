@@ -121,7 +121,7 @@ const KeyValueTable = ({
                       {tableReadOnly ? value : (type === "formData" && valueType === "File") ? (
                         <FileInputWrapper>
                           <FileNameDisplay>
-                            {filePath
+                            {value instanceof ArrayBuffer && filePath
                               ? (filePath.includes("/")
                                 ? filePath.split("/").at(-1)
                                 : filePath.split("\\").at(-1))

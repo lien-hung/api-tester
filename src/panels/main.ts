@@ -276,13 +276,7 @@ class MainWebviewPanel {
     if (responseObject && responseObject.type !== MESSAGE.ERROR) {
       if (this.mainPanel) {
         this.mainPanel.webview.postMessage(responseObject);
-        requestObject.tableData.formData.forEach((row) => {
-          if (row.valueType === "File") {
-            row.value = "";
-            delete row.filePath;
-            delete row.contentType;
-          }
-        });
+        requestObject.tableData.formData.forEach((row) => { if (row.valueType === "File") { row.value = ""; } });
 
         if (this.parentId && this.requestName) {
           const newRequest = {

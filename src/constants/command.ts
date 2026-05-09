@@ -33,6 +33,7 @@ const COMMAND = {
   OPEN_ENVIRONMENT: "rest-forge.openEnvironment",
   RENAME_ENVIRONMENT: "rest-forge.renameEnvironment",
   DELETE_ENVIRONMENT: "rest-forge.deleteEnvironment",
+  EXPORT_ENVIRONMENT: "rest-forge.exportEnvironment",
 
   MANAGE_TOKENS: "rest-forge.manageTokens",
   IMPORT_CURL: "rest-forge.importCurl",

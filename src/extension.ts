@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 
 import CollectionsProvider from './collections';
 import { RequestCollection, RequestFolder, RequestItem } from './collections/tree-items';
-import { COMMAND, MESSAGE, NAME, TYPE } from "./constants";
+import { COMMAND, MESSAGE, NAME, OPTION, TYPE } from "./constants";
 import EnvironmentsProvider from './environments';
 import { EnvironmentTreeItem } from './environments/tree-items';
 import MainWebviewPanel from './panels/main';
@@ -225,6 +225,12 @@ export async function activate(context: vscode.ExtensionContext) {
 			if (!collectionName) {
 				return;
 			}
+			
+			if (/[/\\?%*:|"<>]/.test(collectionName)) {
+				vscode.window.showInformationMessage(MESSAGE.INVALID_NAME);
+				return;
+			}
+			
 			if (collectionsProvider.collectionNames.includes(collectionName.trim())) {
 				await vscode.window.showInformationMessage(MESSAGE.COLLECTION_EXISTS);
 				return;
@@ -292,13 +298,31 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	const disp_exportCollectionCmd = vscode.commands.registerCommand(
 		COMMAND.EXPORT_COLLECTION,
-		(collection: RequestCollection) => {
+		async (collection: RequestCollection) => {
+			const selectedType = await vscode.window.showQuickPick(
+				OPTION.EXPORT_TYPES,
+				{
+					placeHolder: "Select an export type",
+					canPickMany: false,
+				}
+			);
+
+			if (!selectedType) {
+				return;
+			}
+			
 			vscode.window.showSaveDialog({
-				defaultUri: vscode.Uri.file(`collection_${collection.name.replace(/[/\\?%*:|"<>]/g, '-')}.json`)
+				defaultUri: vscode.Uri.file(`collection_${collection.name.replace(/[/\\?%*:|"<>]/g, '-')}`)
 			}).then((uri) => {
 				if (uri) {
 					const exportPath = uri.fsPath;
-					collectionsProvider.export(collection, exportPath);
+					if (selectedType.label === "Postman Collection v2.1") {
+						collectionsProvider.export(collection, exportPath, "postman");
+					} else if (selectedType.label === "OpenCollection v1") {
+						collectionsProvider.export(collection, exportPath, "open-collection");
+					} else {
+						collectionsProvider.export(collection, exportPath);
+					}
 					vscode.window.showInformationMessage(MESSAGE.EXPORT_SUCCESSFUL);
 				}
 			});
@@ -444,6 +468,11 @@ export async function activate(context: vscode.ExtensionContext) {
 				return;
 			}
 
+			if (/[/\\?%*:|"<>]/.test(newEnvName)) {
+				vscode.window.showInformationMessage(MESSAGE.INVALID_NAME);
+				return;
+			}
+
 			if (environmentsProvider.envNames.includes(newEnvName.trim())) {
 				vscode.window.showInformationMessage(MESSAGE.ENVIRONMENT_EXISTS);
 				return;
@@ -477,6 +506,21 @@ export async function activate(context: vscode.ExtensionContext) {
 		(envItem: EnvironmentTreeItem) => {
 			environmentsProvider.delete(envItem);
 			postEnvironmentData();
+		}
+	);
+
+	const disp_exportEnvironmentCmd = vscode.commands.registerCommand(
+		COMMAND.EXPORT_ENVIRONMENT,
+		(envItem: EnvironmentTreeItem) => {
+			vscode.window.showSaveDialog({
+				defaultUri: vscode.Uri.file(`environment_${envItem.data.name}.env`)
+			}).then((uri) => {
+				if (uri) {
+					const exportPath = uri.fsPath;
+					environmentsProvider.exportEnv(envItem, exportPath);
+					vscode.window.showInformationMessage(MESSAGE.EXPORT_SUCCESSFUL);
+				}
+			});
 		}
 	);
 
@@ -525,14 +569,14 @@ export async function activate(context: vscode.ExtensionContext) {
 		COMMAND.SET_ACTIVE_ENV,
 		async () => {
 			const envName = await vscode.window.showQuickPick(
-				["(no environment)", ...environmentsProvider.envNames],
+				["<no environment>", ...environmentsProvider.envNames],
 				{
 					placeHolder: "Select an environment",
 					canPickMany: false
 				}
 			);
 
-			if (envName === "(no environment)") {
+			if (envName === "<no environment>") {
 				environmentsProvider.setNoActiveEnv();
 			} else if (envName) {
 				environmentsProvider.setActiveEnv(envName);
@@ -617,6 +661,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(disp_openEnvironmentCmd);
 	context.subscriptions.push(disp_renameEnvironmentCmd);
 	context.subscriptions.push(disp_deleteEnvironmentCmd);
+	context.subscriptions.push(disp_exportEnvironmentCmd);
 
 	context.subscriptions.push(disp_manageTokensCmd);
 	context.subscriptions.push(disp_importCurlCmd);

@@ -1,10 +1,11 @@
 import fs from "fs";
+import yaml from "js-yaml";
 import path from "path";
 import { EventEmitter, ExtensionContext, TreeDataProvider, TreeItem, Uri } from "vscode";
 
-import { RequestCollection, RequestFolder, RequestItem } from "./tree-items";
-import { IRequestTreeItemState } from "../utils/type";
 import { getElapsedTime, getHomePath, getMethodIcons } from "../utils";
+import { IRequestTreeItemState } from "../utils/type";
+import { RequestCollection, RequestFolder, RequestItem } from "./tree-items";
 import { CollectionDataEntry } from "./type";
 
 type CollectionsProviderItem = RequestCollection | RequestFolder | RequestItem;
@@ -222,9 +223,39 @@ export default class CollectionsProvider implements TreeDataProvider<Collections
     return entry;
   }
 
-  public export(collection: RequestCollection, path: string) {
-    const exportData = this.buildTree(collection);
-    fs.writeFileSync(path, JSON.stringify(exportData, null, 2));
+  private buildPostmanJson(item: CollectionsProviderItem) {
+    const entry = item.toPostmanJson();
+    const children = this.tree.filter(i => i.parent?.id === item.id);
+    if (children.length > 0 && "item" in entry) {
+      // @ts-ignore
+      entry.item = children.map(child => this.buildPostmanJson(child));
+    }
+    return entry;
+  }
+
+  private buildOpenCollection(item: CollectionsProviderItem) {
+    const entry = item.toOpenCollection();
+    const children = this.tree.filter(i => i.parent?.id === item.id);
+    if (children.length > 0 && "items" in entry) {
+      // @ts-ignore
+      entry.items = children.map(child => this.buildOpenCollection(child));
+    }
+    return entry;
+  }
+
+  public export(collection: RequestCollection, path: string, type?: string) {
+    let exportData;
+    switch (type) {
+      case "postman":
+        exportData = JSON.stringify(this.buildPostmanJson(collection), null, 2);
+        break;
+      case "open-collection":
+        exportData = yaml.dump(this.buildOpenCollection(collection));
+        break;
+      default:
+        exportData = JSON.stringify(this.buildTree(collection), null, 2);
+    }
+    fs.writeFileSync(path, exportData);
   }
 
   constructor(context: ExtensionContext) {

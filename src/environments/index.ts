@@ -91,6 +91,14 @@ export default class EnvironmentsProvider implements TreeDataProvider<Environmen
     this.save();
   }
 
+  public exportEnv(item: EnvironmentTreeItem, path: string) {
+    const envLines = item.data.variables
+      .filter((v) => v.key && v.isChecked)
+      .map((v) => `${v.key}=${v.value}`);
+    const envString = envLines.join("\n");
+    fs.writeFileSync(path, envString);
+  }
+
   private get filePath() {
     return getHomePath("environments.json");
   }

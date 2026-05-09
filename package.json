@@ -177,6 +177,10 @@
         "command": "rest-forge.deleteEnvironment"
       },
       {
+        "title": "Export to .env",
+        "command": "rest-forge.exportEnvironment"
+      },
+      {
         "title": "Manage OAuth 2.0 Tokens",
         "command": "rest-forge.manageTokens",
         "category": "REST Forge"
@@ -326,6 +330,10 @@
         },
         {
           "command": "rest-forge.deleteEnvironment",
+          "when": "false"
+        },
+        {
+          "command": "rest-forge.exportEnvironment",
           "when": "false"
         }
       ],
@@ -491,6 +499,11 @@
           "command": "rest-forge.deleteEnvironment",
           "when": "view == restForgeEnvironmentsTreeView && viewItem == userEnvironment.item",
           "group": "a@2"
+        },
+        {
+          "command": "rest-forge.exportEnvironment",
+          "when": "view == restForgeEnvironmentsTreeView && viewItem == userEnvironment.item",
+          "group": "a@3"
         }
       ]
     },
@@ -524,6 +537,7 @@
     "@babel/preset-env": "^7.28.5",
     "@babel/preset-react": "^7.28.5",
     "@types/file-saver": "^2.0.7",
+    "@types/js-yaml": "^4.0.9",
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
     "@types/postman-collection": "^3.5.11",
@@ -550,6 +564,7 @@
     "crypto-random-string": "^5.0.0",
     "fast-xml-parser": "^5.7.1",
     "file-saver": "^2.0.5",
+    "js-yaml": "^4.1.1",
     "mime": "^4.1.0",
     "node-polyfill-webpack-plugin": "^4.0.0",
     "postman-collection": "^5.2.0",

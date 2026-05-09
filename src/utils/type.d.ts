@@ -43,7 +43,7 @@ export interface IRequestObject {
   requestMethod: string;
   requestUrl: string;
   authOption: string;
-  authData: IAuthData;
+  authData: IHeaderAuth;
   oauth2Data: IOAuth2Data;
   bodyOption: string;
   bodyRawOption: string;
