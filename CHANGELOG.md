@@ -2,6 +2,9 @@
 
 All notable changes to the "rest-forge" extension will be documented in this file.
 
+## [v4.1.4]
+- Fixed proper formatting of exported Postman and Bruno collections
+
 ## [v4.1.3]
 - Export feature:
   - Added export option to Postman collection (JSON) and OpenCollection
