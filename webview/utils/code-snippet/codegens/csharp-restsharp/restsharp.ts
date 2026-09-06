@@ -53,19 +53,18 @@ function makeOptionsSnippet(urlOrigin: string, options: SnippetOptions, indentSt
 /**
  * Generates an URL object from the string
  *
- * @param {string} stringToParse - url in string representation
- * @returns {object} the URL object
+ * @param stringToParse - url in string representation
+ * @returns the URL object
  */
-function parseURL(stringToParse: string): URL | undefined {
+function parseURL(stringToParse: string) {
   try {
     let objectURL = new URL(stringToParse);
     return objectURL;
   }
   catch (err) {
     try {
-      var url = require('url');
-      let urlObj = url.parse(stringToParse);
-      if (urlObj.hostname === null) {
+      const urlObj = URL.parse(stringToParse);
+      if (!urlObj?.hostname) {
         return;
       }
       return urlObj;

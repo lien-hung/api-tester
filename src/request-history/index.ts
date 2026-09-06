@@ -3,7 +3,7 @@ import { EventEmitter, ExtensionContext, TreeDataProvider } from "vscode";
 
 import { getHomePath, getMethodIcons } from "../../src/utils";
 import { IRequestTreeItemState } from "../utils/type";
-import { RequestHistoryTreeItem } from "./tree-items";
+import { RequestHistoryTreeItem } from "./treeItems";
 
 export default class RequestHistoryProvider implements TreeDataProvider<RequestHistoryTreeItem> {
   private extensionContext: ExtensionContext;

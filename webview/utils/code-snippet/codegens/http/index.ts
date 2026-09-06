@@ -1,7 +1,7 @@
 import { PostgenOption } from '../../common/type';
 import { sanitizeOptions, solveMultiFile } from '../../common/utils';
 import { getBody, getHeaders } from './util';
-import { Request, RequestBody, Url } from 'postman-collection';
+import { Request, RequestBody, Url, UrlDefinition } from 'postman-collection';
 
 /**
  * Used in order to get additional options for generation of code snippet (i.e. Include Boilerplate code)
@@ -31,7 +31,7 @@ export function getOptions(): Array<PostgenOption> {
  */
 export function convert(request: Request, options: { trimRequestBody: boolean; }, callback: Function): Function {
   let snippet = '',
-    url, host, path, query, body, headers;
+    url: UrlDefinition, host, path, query, body, headers;
   options = sanitizeOptions(options, getOptions());
 
   url = Url.parse(request.url.toString());

@@ -1,15 +1,15 @@
 import * as vscode from 'vscode';
 
 import CollectionsProvider from './collections';
-import { RequestCollection, RequestFolder, RequestItem } from './collections/tree-items';
+import { RequestCollection, RequestFolder, RequestItem } from './collections/treeItems';
 import { COMMAND, MESSAGE, NAME, OPTION, TYPE } from "./constants";
 import EnvironmentsProvider from './environments';
-import { EnvironmentTreeItem } from './environments/tree-items';
+import { EnvironmentTreeItem } from './environments/treeItems';
 import MainWebviewPanel from './panels/main';
-import ManageEnvironmentPanel from './panels/manage-env';
-import ManageTokenWebviewPanel from './panels/manage-tokens';
+import ManageEnvironmentPanel from './panels/manageEnv';
+import ManageTokenWebviewPanel from './panels/manageTokens';
 import RequestHistoryProvider from './request-history';
-import { RequestHistoryTreeItem } from './request-history/tree-items';
+import { RequestHistoryTreeItem } from './request-history/treeItems';
 import { parseCurl } from './utils';
 import getTokenColors from './utils/getTokenColors';
 import { IRequestObject } from './utils/type';

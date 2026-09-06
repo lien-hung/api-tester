@@ -4,7 +4,6 @@
 
 const path = require('path');
 const webpack = require("webpack");
-const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 
 const babelCommonRules = {
   loader: "babel-loader",
@@ -26,11 +25,12 @@ const tsLoader = {
 /** @type WebpackConfig */
 const extensionConfig = {
   target: 'node',
-	mode: 'development',
+  mode: 'none',
 
   entry: './src/extension.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
+    clean: true,
     filename: 'extension.js',
     libraryTarget: 'commonjs2'
   },
@@ -38,12 +38,7 @@ const extensionConfig = {
     vscode: 'commonjs vscode'
   },
   resolve: {
-    extensions: ['.js', '.ts', '.tsx'],
-    fallback: {
-      buffer: require.resolve("buffer"),
-      path: require.resolve("path-browserify"),
-      url: require.resolve("url")
-    }
+    extensions: ['.js', '.ts'],
   },
   module: {
     rules: [
@@ -72,33 +67,28 @@ const mainWebViewConfig = {
     filename: "bundle.js",
   },
   plugins: [
-    new webpack.ProvidePlugin({
-      Buffer: ["buffer", "Buffer"],
-      process: "process/browser",
-    }),
-    new NodePolyfillPlugin()
+    new webpack.ProvidePlugin({ Buffer: ["buffer", "Buffer"] }),
   ],
   resolve: {
-    mainFields: ["browser", "module", "main"],
-    extensions: [".js", ".ts", ".tsx"]
+    extensions: [".js", ".ts", ".tsx"],
+    fallback: {
+      "path": require.resolve("path-browserify"),
+      "process/browser": require.resolve("process/browser"),
+    },
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
+        exclude: /node_modules/,
         use: [tsLoader],
-        exclude: path.resolve(__dirname, "node_modules"),
       },
       {
         test: /\.(png|svg)$/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              name: "images/[hash]-[name].[ext]",
-            },
-          },
-        ],
+        type: "asset/resource",
+        generator: {
+          filename: "images/[hash]-[name][ext]",
+        },
       },
       {
         test: /\.(js)$/,
@@ -109,4 +99,4 @@ const mainWebViewConfig = {
   },
 };
 
-module.exports = [ extensionConfig, mainWebViewConfig ];
+module.exports = [extensionConfig, mainWebViewConfig];

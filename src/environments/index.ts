@@ -4,8 +4,8 @@ import path from "path";
 
 import { getHomePath } from "../utils";
 import { IEnvironmentTreeItemState, IEnvironmentVariable } from "../utils/type";
-import { EnvironmentTreeItem } from "./tree-items";
-import { EnvironmentStatusEntry } from "./status-entry";
+import { EnvironmentTreeItem } from "./treeItems";
+import { EnvironmentStatusEntry } from "./statusEntry";
 
 export default class EnvironmentsProvider implements TreeDataProvider<EnvironmentTreeItem> {
   private extensionContext: ExtensionContext;

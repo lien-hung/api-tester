@@ -5,7 +5,7 @@ import { EventEmitter, ExtensionContext, TreeDataProvider, TreeItem, Uri } from 
 
 import { getElapsedTime, getHomePath, getMethodIcons } from "../utils";
 import { IRequestTreeItemState } from "../utils/type";
-import { RequestCollection, RequestFolder, RequestItem } from "./tree-items";
+import { RequestCollection, RequestFolder, RequestItem } from "./treeItems";
 import { CollectionDataEntry } from "./type";
 
 type CollectionsProviderItem = RequestCollection | RequestFolder | RequestItem;
