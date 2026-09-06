@@ -2,6 +2,9 @@
 
 All notable changes to the "rest-forge" extension will be documented in this file.
 
+## [v4.1.6]
+- Update dependency packages for the extension due to new vulnerabilities
+
 ## [v4.1.5]
 - Added user-defined styles to other components of Monaco editor
 

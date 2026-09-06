@@ -8,7 +8,7 @@ webview/**
 .eslintrc
 .yarnrc
 webpack.config.js
-vsc-extension-quickstart.md
+CHANGELOG.md
 **/jsconfig.json
 **/tsconfig.json
 **/eslint.config.mjs
